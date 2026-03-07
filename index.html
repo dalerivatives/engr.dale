@@ -1,0 +1,3033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Johndaleverth Pastorfide Echanova — CpE Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #05060d;
+      --ink1: #0a0c18;
+      --ink2: #0f1221;
+      --ink3: #141829;
+      --rim: #1c2138;
+      --rim2: #253054;
+      --txt: #e8eaf6;
+      --txt2: #8892b0;
+      --txt3: #4a5578;
+      --a1: #6c63ff;
+      --a2: #00d4ff;
+      --a3: #ff6b9d;
+      --a4: #ffd166;
+      --a5: #06d6a0;
+      --a6: #ff9a3c;
+      --g1: rgba(108, 99, 255, .15);
+      --g2: rgba(0, 212, 255, .13);
+      --g3: rgba(255, 107, 157, .12);
+      --g4: rgba(255, 209, 102, .11);
+      --g5: rgba(6, 214, 160, .12);
+      --grad-main: linear-gradient(135deg, #6c63ff 0%, #00d4ff 50%, #06d6a0 100%);
+      --grad-warm: linear-gradient(135deg, #ff6b9d, #ffd166);
+      --grad-cool: linear-gradient(135deg, #00d4ff, #06d6a0);
+      --grad-fire: linear-gradient(135deg, #ff9a3c, #ff6b9d);
+      --grad-txt: linear-gradient(90deg, #6c63ff, #00d4ff);
+      --r: 6px;
+      --r2: 12px;
+      --r3: 18px;
+      --fh: 'Syne', sans-serif;
+      --fb: 'Inter', sans-serif;
+      --fc: 'JetBrains Mono', monospace;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 62px;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--ink);
+      color: var(--txt);
+      font-family: var(--fb);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+      max-width: 100vw;
+    }
+
+    /* noise */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 998;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .35;
+    }
+
+    /* ambient */
+    .blobs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      opacity: .085;
+    }
+
+    .b1 {
+      width: 680px;
+      height: 680px;
+      background: #6c63ff;
+      top: -15%;
+      left: -8%;
+      animation: dr1 22s ease-in-out infinite;
+    }
+
+    .b2 {
+      width: 480px;
+      height: 480px;
+      background: #00d4ff;
+      top: 35%;
+      right: -6%;
+      animation: dr2 19s ease-in-out infinite;
+    }
+
+    .b3 {
+      width: 420px;
+      height: 420px;
+      background: #ff6b9d;
+      bottom: 5%;
+      left: 22%;
+      animation: dr3 26s ease-in-out infinite;
+    }
+
+    .b4 {
+      width: 320px;
+      height: 320px;
+      background: #06d6a0;
+      top: 18%;
+      left: 48%;
+      animation: dr1 21s ease-in-out infinite reverse;
+    }
+
+    @keyframes dr1 {
+
+      0%,
+      100% {
+        transform: translate(0, 0)
+      }
+
+      40% {
+        transform: translate(42px, -48px)
+      }
+
+      70% {
+        transform: translate(-28px, 32px)
+      }
+    }
+
+    @keyframes dr2 {
+
+      0%,
+      100% {
+        transform: translate(0, 0)
+      }
+
+      35% {
+        transform: translate(-52px, 38px)
+      }
+
+      65% {
+        transform: translate(28px, -22px)
+      }
+    }
+
+    @keyframes dr3 {
+
+      0%,
+      100% {
+        transform: translate(0, 0)
+      }
+
+      50% {
+        transform: translate(58px, -38px)
+      }
+    }
+
+    /* cursor */
+    #cd {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--a1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10000;
+      pointer-events: none;
+      box-shadow: 0 0 12px var(--a1), 0 0 24px var(--g1);
+    }
+
+    #cr {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(108, 99, 255, .4);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      pointer-events: none;
+      transition: width .2s, height .2s, border-color .2s;
+    }
+
+    #cr.big {
+      width: 48px;
+      height: 48px;
+      border-color: var(--a1);
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+      background: rgba(5, 6, 13, .72);
+      backdrop-filter: blur(28px);
+      border-bottom: 1px solid var(--rim);
+    }
+
+    .nav-brand {
+      font-family: var(--fh);
+      font-size: 15px;
+      font-weight: 700;
+      background: var(--grad-txt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--fc);
+      font-size: 11px;
+      color: var(--txt3);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: var(--r);
+      transition: color .2s, background .2s;
+      letter-spacing: .04em;
+    }
+
+    .nav-links a:hover {
+      color: var(--a1);
+      background: var(--g1);
+    }
+
+    .nav-end {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .n-ping {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--fc);
+      font-size: 11px;
+      color: var(--a5);
+    }
+
+    .pdt {
+      width: 7px;
+      height: 7px;
+      background: var(--a5);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--a5);
+      animation: pk 2s ease infinite;
+    }
+
+    @keyframes pk {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .2
+      }
+    }
+
+    .btn-ed-nav {
+      font-family: var(--fc);
+      font-size: 11px;
+      letter-spacing: .05em;
+      background: transparent;
+      border: 1px solid var(--rim2);
+      color: var(--txt2);
+      padding: 7px 16px;
+      cursor: none;
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all .2s;
+    }
+
+    .btn-ed-nav:hover,
+    .btn-ed-nav.on {
+      border-color: var(--a1);
+      color: var(--a1);
+      background: var(--g1);
+    }
+
+    /* edit bar */
+    .ebar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 490;
+      height: 50px;
+      padding: 0 56px;
+      background: rgba(108, 99, 255, .08);
+      border-top: 1px solid rgba(108, 99, 255, .3);
+      backdrop-filter: blur(20px);
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ebar.on {
+      display: flex;
+    }
+
+    .ebar-lbl {
+      font-family: var(--fc);
+      font-size: 11px;
+      letter-spacing: .1em;
+      background: var(--grad-txt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .btn-save {
+      font-family: var(--fc);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      background: var(--grad-main);
+      color: #fff;
+      border: none;
+      padding: 8px 22px;
+      cursor: none;
+      border-radius: var(--r);
+      transition: opacity .2s;
+    }
+
+    .btn-save:hover {
+      opacity: .82;
+    }
+
+    /* modal */
+    .mbg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 600;
+      background: rgba(5, 6, 13, .88);
+      backdrop-filter: blur(24px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mbg.on {
+      display: flex;
+    }
+
+    .mbox {
+      width: min(420px, 90vw);
+      background: var(--ink1);
+      border: 1px solid var(--rim2);
+      border-radius: var(--r3);
+      padding: 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mbox::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--grad-main);
+    }
+
+    .m-tag {
+      font-family: var(--fc);
+      font-size: 10px;
+      color: var(--a1);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .m-title {
+      font-family: var(--fh);
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .m-sub {
+      font-family: var(--fc);
+      font-size: 12px;
+      color: var(--txt2);
+      margin-bottom: 28px;
+    }
+
+    .m-lbl {
+      font-family: var(--fc);
+      font-size: 10px;
+      color: var(--txt3);
+      letter-spacing: .1em;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .m-inp {
+      width: 100%;
+      background: var(--ink2);
+      border: 1px solid var(--rim2);
+      color: var(--txt);
+      font-family: var(--fc);
+      font-size: 14px;
+      padding: 12px 14px;
+      outline: none;
+      border-radius: var(--r);
+      cursor: none;
+      transition: border-color .2s;
+    }
+
+    .m-inp:focus {
+      border-color: var(--a1);
+    }
+
+    .m-err {
+      font-family: var(--fc);
+      font-size: 11px;
+      color: #ff6b6b;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .m-btn {
+      width: 100%;
+      margin-top: 16px;
+      background: var(--grad-main);
+      color: #fff;
+      font-family: var(--fc);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      border: none;
+      padding: 14px;
+      cursor: none;
+      border-radius: var(--r);
+      transition: opacity .2s;
+    }
+
+    .m-btn:hover {
+      opacity: .85;
+    }
+
+    .m-x {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--txt3);
+      font-size: 22px;
+      cursor: none;
+      transition: color .2s;
+      line-height: 1;
+    }
+
+    .m-x:hover {
+      color: var(--txt);
+    }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      min-height: 100vh;
+      padding-top: 60px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* left */
+    .h-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 56px 60px;
+      border-right: 1px solid var(--rim);
+    }
+
+    .h-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--fc);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: var(--g1);
+      border: 1px solid rgba(108, 99, 255, .25);
+      color: var(--a1);
+      padding: 7px 16px;
+      border-radius: 30px;
+      margin-bottom: 36px;
+      width: fit-content;
+      opacity: 0;
+      animation: up .7s ease .1s forwards;
+    }
+
+    .h-badge::before {
+      content: '◆';
+      font-size: 8px;
+    }
+
+    .h-name {
+      font-family: var(--fh);
+      font-weight: 800;
+      line-height: .93;
+      letter-spacing: -.03em;
+      opacity: 0;
+      animation: up .7s ease .22s forwards;
+    }
+
+    .nl1 {
+      display: block;
+      font-size: clamp(18px, 4.8vw, 78px);
+      color: var(--txt);
+      white-space: nowrap;
+      overflow: visible;
+    }
+
+    .nl2 {
+      display: block;
+      font-size: clamp(18px, 4.8vw, 78px);
+      white-space: nowrap;
+      overflow: visible;
+      background: var(--grad-txt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nl3 {
+      display: block;
+      font-size: clamp(11px, 1.4vw, 20px);
+      font-weight: 400;
+      color: var(--txt2);
+      font-family: var(--fc);
+      letter-spacing: .08em;
+      margin-top: 12px;
+    }
+
+    .h-role {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      font-family: var(--fc);
+      font-size: 13px;
+      color: var(--txt2);
+      letter-spacing: .03em;
+      opacity: 0;
+      animation: up .7s ease .35s forwards;
+    }
+
+    .rchip {
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      background: rgba(0, 212, 255, .1);
+      border: 1px solid rgba(0, 212, 255, .25);
+      color: var(--a2);
+      letter-spacing: .08em;
+    }
+
+    .h-about {
+      margin-top: 28px;
+      padding: 20px 22px;
+      background: var(--ink1);
+      border: 1px solid var(--rim);
+      border-left: 3px solid var(--a1);
+      border-radius: 0 var(--r2) var(--r2) 0;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: up .7s ease .47s forwards;
+    }
+
+    .h-about::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--g1), transparent 60%);
+      pointer-events: none;
+    }
+
+    .ab-ey {
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--a1);
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ab-tx {
+      font-family: var(--fb);
+      font-size: 13.5px;
+      color: var(--txt2);
+      line-height: 1.8;
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+    }
+
+    .h-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--rim);
+      border-radius: var(--r2);
+      overflow: hidden;
+      margin-top: 28px;
+      opacity: 0;
+      animation: up .7s ease .58s forwards;
+    }
+
+    .st {
+      padding: 14px;
+      text-align: center;
+      border-right: 1px solid var(--rim);
+      transition: background .2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .st:last-child {
+      border-right: none;
+    }
+
+    .st:hover {
+      background: var(--ink2);
+    }
+
+    .st::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    .st:nth-child(1)::after {
+      background: var(--a1);
+    }
+
+    .st:nth-child(2)::after {
+      background: var(--a2);
+    }
+
+    .st:nth-child(3)::after {
+      background: var(--a3);
+    }
+
+    .st:nth-child(4)::after {
+      background: var(--a4);
+    }
+
+    .st:hover::after {
+      opacity: 1;
+    }
+
+    .st-n {
+      font-family: var(--fh);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      background: var(--grad-txt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .st-l {
+      font-family: var(--fc);
+      font-size: 10px;
+      color: var(--txt3);
+      letter-spacing: .08em;
+      margin-top: 4px;
+    }
+
+    .h-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+      opacity: 0;
+      animation: up .7s ease .68s forwards;
+    }
+
+    .hl {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--fc);
+      font-size: 11px;
+      letter-spacing: .05em;
+      padding: 8px 16px;
+      border-radius: var(--r);
+      cursor: none;
+      text-decoration: none;
+      border: 1px solid var(--rim2);
+      color: var(--txt2);
+      transition: all .22s;
+    }
+
+    .hl:hover {
+      border-color: var(--a1);
+      color: var(--a1);
+      background: var(--g1);
+    }
+
+    @keyframes up {
+      from {
+        opacity: 0;
+        transform: translateY(22px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes fi {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    /* ═══ GALLERY RIGHT ═══ */
+    .h-gallery {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      animation: fi 1s ease .4s forwards;
+    }
+
+    .gmesh {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse 80% 60% at 30% 20%, rgba(108, 99, 255, .22) 0%, transparent 65%),
+        radial-gradient(ellipse 70% 50% at 80% 80%, rgba(0, 212, 255, .18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 70% 10%, rgba(255, 107, 157, .15) 0%, transparent 55%);
+    }
+
+    /* macOS title bar */
+    .gbar {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 22px;
+      background: rgba(5, 6, 13, .6);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      flex-shrink: 0;
+    }
+
+    .gbar-l {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .gbdots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .gbd {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .gbd.r {
+      background: #ff5f57;
+    }
+
+    .gbd.y {
+      background: #febc2e;
+    }
+
+    .gbd.g {
+      background: #28c840;
+    }
+
+    .gbar-title {
+      font-family: var(--fc);
+      font-size: 11px;
+      color: var(--txt3);
+    }
+
+    .gbar-title b {
+      color: var(--txt2);
+      font-weight: 400;
+    }
+
+    .gbar-r {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gnbtn {
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .1);
+      color: var(--txt2);
+      border-radius: var(--r);
+      cursor: none;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      font-family: var(--fh);
+    }
+
+    .gnbtn:hover {
+      border-color: var(--a1);
+      color: var(--a1);
+      background: var(--g1);
+    }
+
+    .gidx {
+      font-family: var(--fc);
+      font-size: 11px;
+      color: var(--txt3);
+      padding: 0 4px;
+    }
+
+    /* swiper */
+    .gsw {
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+      position: relative;
+      z-index: 1;
+      cursor: none;
+    }
+
+    .gtrack {
+      display: flex;
+      height: 100%;
+      transition: transform .55s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .gslide {
+      flex: 0 0 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gslide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s ease;
+    }
+
+    .gslide:hover img {
+      transform: scale(1.03);
+    }
+
+    .gph {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background: var(--ink1);
+    }
+
+    .gph-ic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--ink2);
+      border: 2px dashed var(--rim2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--txt3);
+    }
+
+    .gph-tx {
+      font-family: var(--fc);
+      font-size: 12px;
+      color: var(--txt3);
+      letter-spacing: .08em;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .gfade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 160px;
+      background: linear-gradient(to top, rgba(5, 6, 13, .9), transparent);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .gcaption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      padding: 18px 22px 22px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .gcounter {
+      font-family: var(--fh);
+      font-size: 40px;
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, .1);
+      letter-spacing: -.04em;
+      line-height: 1;
+    }
+
+    .gtag {
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .1em;
+      background: rgba(108, 99, 255, .3);
+      border: 1px solid rgba(108, 99, 255, .4);
+      color: var(--a1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .gov {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(108, 99, 255, .18);
+      backdrop-filter: blur(3px);
+      font-family: var(--fc);
+      font-size: 12px;
+      color: var(--a1);
+      letter-spacing: .1em;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    body.em .gslide:hover .gov {
+      opacity: 1;
+    }
+
+    /* gallery footer */
+    .gfoot {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 22px;
+      background: rgba(5, 6, 13, .6);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      flex-shrink: 0;
+    }
+
+    .gdots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .gdot {
+      height: 4px;
+      width: 18px;
+      border-radius: 2px;
+      background: var(--rim2);
+      cursor: none;
+      transition: all .3s;
+    }
+
+    .gdot.on {
+      width: 36px;
+      background: var(--grad-txt);
+    }
+
+    .gov-add,
+    .gov-del {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .07em;
+      padding: 7px 14px;
+      border-radius: 20px;
+      border: 1px solid;
+      cursor: pointer;
+      transition: all .2s;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.em .gov .gov-add,
+    body.em .gov .gov-del {
+      pointer-events: auto;
+    }
+
+    body.em .gslide:hover .gov-add,
+    body.em .gslide:hover .gov-del {
+      opacity: 1;
+    }
+
+    .gov-add {
+      background: rgba(108, 99, 255, .15);
+      border-color: var(--a1);
+      color: var(--a1);
+    }
+
+    .gov-add:hover {
+      background: rgba(108, 99, 255, .3);
+    }
+
+    .gov-del {
+      background: rgba(255, 80, 80, .12);
+      border-color: #ff5050;
+      color: #ff5050;
+    }
+
+    .gov-del:hover {
+      background: rgba(255, 80, 80, .25);
+    }
+
+    .cvid-del {
+      display: none;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 10;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .06em;
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: 1px solid #ff5050;
+      background: rgba(255, 80, 80, .15);
+      color: #ff5050;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    body.em .cvid-del {
+      display: flex;
+    }
+
+    .cvid-del:hover {
+      background: rgba(255, 80, 80, .3);
+    }
+
+    .gadd {
+      display: none;
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .08em;
+      background: var(--g1);
+      border: 1px dashed rgba(108, 99, 255, .35);
+      color: var(--a1);
+      padding: 6px 14px;
+      cursor: none;
+      border-radius: var(--r);
+      align-items: center;
+      gap: 6px;
+      transition: all .2s;
+    }
+
+    .gadd:hover {
+      background: rgba(108, 99, 255, .22);
+    }
+
+    body.em .gadd {
+      display: inline-flex;
+    }
+
+    .gclear {
+      background: rgba(255, 80, 80, .1) !important;
+      border-color: #ff5050 !important;
+      color: #ff5050 !important;
+    }
+
+    .gclear:hover {
+      background: rgba(255, 80, 80, .25) !important;
+    }
+
+    /* hero editor wrap */
+    .hed-wrap {
+      position: relative;
+      z-index: 1;
+      padding: 0 56px;
+      background: var(--ink);
+      border-top: 1px solid var(--rim);
+    }
+
+    /* ═══ SECTIONS ═══ */
+    .sec {
+      padding: 96px 56px;
+      border-top: 1px solid var(--rim);
+      position: relative;
+      z-index: 1;
+    }
+
+    .sec::after {
+      content: attr(data-n);
+      position: absolute;
+      right: 56px;
+      top: 80px;
+      font-family: var(--fh);
+      font-size: 140px;
+      font-weight: 800;
+      letter-spacing: -.05em;
+      line-height: 1;
+      pointer-events: none;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(108, 99, 255, .055);
+    }
+
+    .sec-hd {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 54px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--rim);
+    }
+
+    .sec-kick {
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sec-kick::before {
+      content: '//';
+      color: var(--txt3);
+    }
+
+    .sec-tit {
+      font-family: var(--fh);
+      font-weight: 800;
+      letter-spacing: -.025em;
+      line-height: .95;
+      font-size: clamp(30px, 3.2vw, 48px);
+    }
+
+    .gt {
+      background: var(--grad-txt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gw {
+      background: var(--grad-warm);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gc {
+      background: var(--grad-cool);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gf {
+      background: var(--grad-fire);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sec-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .dh {
+      font-family: var(--fc);
+      font-size: 10px;
+      color: var(--txt3);
+      letter-spacing: .06em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dha {
+      display: inline-block;
+      animation: nd 2s ease infinite;
+    }
+
+    @keyframes nd {
+
+      0%,
+      100% {
+        transform: translateX(0)
+      }
+
+      50% {
+        transform: translateX(5px)
+      }
+    }
+
+    .swb-wrap {
+      display: flex;
+    }
+
+    .swb {
+      width: 34px;
+      height: 34px;
+      background: var(--ink1);
+      border: 1px solid var(--rim2);
+      color: var(--txt2);
+      cursor: none;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .18s;
+      font-family: var(--fh);
+    }
+
+    .swb:first-child {
+      border-radius: var(--r) 0 0 var(--r);
+      border-right: none;
+    }
+
+    .swb:last-child {
+      border-radius: 0 var(--r) var(--r) 0;
+    }
+
+    .swb:hover {
+      border-color: var(--a1);
+      color: var(--a1);
+      background: var(--g1);
+    }
+
+    .swpg {
+      font-family: var(--fc);
+      font-size: 11px;
+      color: var(--txt3);
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .btn-sec-ed {
+      display: none;
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .08em;
+      background: var(--g1);
+      border: 1px solid rgba(108, 99, 255, .28);
+      color: var(--a1);
+      padding: 7px 14px;
+      cursor: none;
+      border-radius: var(--r);
+      transition: all .2s;
+    }
+
+    .btn-sec-ed:hover {
+      background: rgba(108, 99, 255, .2);
+    }
+
+    body.em .btn-sec-ed {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* swiper */
+    .sw-wrap {
+      overflow: hidden;
+      touch-action: pan-y;
+      width: 100%;
+    }
+
+    .sw-track {
+      display: flex;
+      transition: transform .52s cubic-bezier(.22, 1, .36, 1);
+      width: 100%;
+    }
+
+    .sw-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 22px;
+    }
+
+    .swdot {
+      height: 3px;
+      width: 18px;
+      background: var(--rim2);
+      border-radius: 2px;
+      cursor: none;
+      transition: all .3s;
+    }
+
+    .swdot.on {
+      width: 36px;
+      background: var(--grad-txt);
+    }
+
+    /* cards */
+    .card {
+      padding: 0 8px;
+    }
+
+    .ci {
+      background: var(--ink1);
+      border: 1px solid var(--rim);
+      border-radius: var(--r3);
+      padding: 28px;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, transform .25s, box-shadow .3s;
+    }
+
+    .ci:hover {
+      border-color: rgba(108, 99, 255, .35);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 56px rgba(108, 99, 255, .1);
+    }
+
+    .ci::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--grad-main);
+      opacity: 0;
+      transition: opacity .3s;
+      border-radius: var(--r3) var(--r3) 0 0;
+    }
+
+    .ci:hover::before {
+      opacity: 1;
+    }
+
+    .ci::after {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(108, 99, 255, .07), transparent 70%);
+      pointer-events: none;
+    }
+
+    .c-hd {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .clogo {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      background: var(--ink2);
+      border: 1px solid var(--rim2);
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: none;
+      transition: all .22s;
+    }
+
+    body.em .clogo:hover {
+      border-color: var(--a1);
+      background: var(--g1);
+    }
+
+    .clogo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .clph {
+      font-size: 20px;
+      background: var(--grad-txt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cmeta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cprd {
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .1em;
+      margin-bottom: 4px;
+      background: var(--grad-txt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ctit {
+      font-family: var(--fh);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 3px;
+      line-height: 1.25;
+    }
+
+    .csub {
+      font-family: var(--fc);
+      font-size: 11px;
+      color: var(--txt2);
+    }
+
+    .cdesc {
+      font-family: var(--fb);
+      font-size: 13px;
+      color: var(--txt2);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .ctags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 14px;
+    }
+
+    .ctag {
+      font-family: var(--fc);
+      font-size: 10px;
+      background: var(--ink2);
+      border: 1px solid var(--rim2);
+      color: var(--txt2);
+      padding: 3px 9px;
+      border-radius: 4px;
+      transition: all .18s;
+    }
+
+    .ctag:hover {
+      border-color: var(--a2);
+      color: var(--a2);
+    }
+
+    .cnum {
+      position: absolute;
+      bottom: 14px;
+      right: 18px;
+      font-family: var(--fh);
+      font-size: 52px;
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(108, 99, 255, .07);
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .cvid {
+      margin-top: 16px;
+      aspect-ratio: 16/9;
+      background: var(--ink2);
+      border: 1px solid var(--rim);
+      border-radius: var(--r);
+      overflow: hidden;
+    }
+
+    .cvid-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .cvid-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .cvid-block {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: transparent;
+      cursor: default;
+    }
+
+    .cvid-ph {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--fc);
+      font-size: 10px;
+      color: var(--txt3);
+      letter-spacing: .08em;
+    }
+
+    /* achievement cards */
+    .ai {
+      background: var(--ink1);
+      border: 1px solid var(--rim);
+      border-radius: var(--r3);
+      padding: 28px;
+      height: 100%;
+      display: flex;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, transform .25s, box-shadow .3s;
+    }
+
+    .ai:hover {
+      border-color: rgba(255, 209, 102, .3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 56px rgba(255, 209, 102, .07);
+    }
+
+    .ai::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--grad-warm);
+      opacity: 0;
+      transition: opacity .3s;
+      border-radius: var(--r3) var(--r3) 0 0;
+    }
+
+    .ai:hover::before {
+      opacity: 1;
+    }
+
+    .ai-ic {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      background: var(--ink2);
+      border: 1px solid var(--rim2);
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .ai-yr {
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .1em;
+      margin-bottom: 4px;
+      background: var(--grad-warm);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ai-tit {
+      font-family: var(--fh);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .ai-desc {
+      font-family: var(--fb);
+      font-size: 13px;
+      color: var(--txt2);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .ai-n {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-family: var(--fh);
+      font-size: 52px;
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 209, 102, .06);
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    /* skills */
+    .sk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+      gap: 1px;
+      background: var(--rim);
+      border-radius: var(--r2);
+      overflow: hidden;
+    }
+
+    .sk-cat {
+      background: var(--ink1);
+      padding: 26px;
+      transition: background .2s;
+    }
+
+    .sk-cat:hover {
+      background: var(--ink2);
+    }
+
+    .sk-tit {
+      font-family: var(--fc);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .sk-tit::before {
+      content: '$';
+      color: var(--a5);
+    }
+
+    .sk-cat:nth-child(5n+1) .sk-tit {
+      color: var(--a1);
+    }
+
+    .sk-cat:nth-child(5n+2) .sk-tit {
+      color: var(--a2);
+    }
+
+    .sk-cat:nth-child(5n+3) .sk-tit {
+      color: var(--a3);
+    }
+
+    .sk-cat:nth-child(5n+4) .sk-tit {
+      color: var(--a4);
+    }
+
+    .sk-cat:nth-child(5n+5) .sk-tit {
+      color: var(--a5);
+    }
+
+    .sk-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .sk-tag {
+      font-family: var(--fc);
+      font-size: 10px;
+      background: var(--ink2);
+      border: 1px solid var(--rim2);
+      color: var(--txt2);
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: none;
+      transition: all .18s;
+    }
+
+    .sk-tag:hover {
+      border-color: var(--a1);
+      color: var(--a1);
+      background: var(--g1);
+    }
+
+    /* contact */
+    .ct-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+      gap: 1px;
+      background: var(--rim);
+      border-radius: var(--r2);
+      overflow: hidden;
+    }
+
+    .ct-item {
+      background: var(--ink1);
+      padding: 26px;
+      transition: background .2s;
+    }
+
+    .ct-item:hover {
+      background: var(--ink2);
+    }
+
+    .ct-lbl {
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+      background: var(--grad-cool);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ct-val {
+      font-family: var(--fb);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .ct-val a {
+      color: var(--txt);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+
+    .ct-val a:hover {
+      color: var(--a2);
+      border-bottom-color: var(--a2);
+    }
+
+    /* editor */
+    .edp {
+      display: none;
+      margin-top: 28px;
+      background: var(--ink1);
+      border: 1px solid rgba(108, 99, 255, .22);
+      border-radius: var(--r3);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .edp::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--grad-main);
+    }
+
+    .edp.on {
+      display: block;
+    }
+
+    .edp-hd {
+      font-family: var(--fc);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rim);
+      background: var(--grad-txt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ei {
+      background: var(--ink2);
+      border: 1px solid var(--rim);
+      border-radius: var(--r2);
+      padding: 20px;
+      margin-bottom: 10px;
+      position: relative;
+      transition: border-color .2s;
+    }
+
+    .ei:hover {
+      border-color: var(--rim2);
+    }
+
+    .btn-clr {
+      font-family: var(--fc);
+      font-size: 9px;
+      letter-spacing: .05em;
+      padding: 2px 7px;
+      border-radius: 10px;
+      border: 1px solid #ff5050;
+      background: rgba(255, 80, 80, .1);
+      color: #ff5050;
+      cursor: pointer;
+      margin-left: 6px;
+      vertical-align: middle;
+      transition: all .2s;
+    }
+
+    .btn-clr:hover {
+      background: rgba(255, 80, 80, .25);
+    }
+
+    .eidel {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: var(--txt3);
+      font-size: 18px;
+      cursor: none;
+      transition: color .18s;
+      padding: 3px 6px;
+    }
+
+    .eidel:hover {
+      color: #ff6b6b;
+    }
+
+    .f2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .fg {
+      margin-bottom: 12px;
+    }
+
+    .fg label {
+      display: block;
+      font-family: var(--fc);
+      font-size: 10px;
+      color: var(--txt3);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .fg input,
+    .fg textarea {
+      width: 100%;
+      background: var(--ink);
+      border: 1px solid var(--rim2);
+      color: var(--txt);
+      font-family: var(--fc);
+      font-size: 13px;
+      padding: 9px 12px;
+      outline: none;
+      border-radius: var(--r);
+      cursor: none;
+      transition: border-color .2s;
+      resize: vertical;
+    }
+
+    .fg input:focus,
+    .fg textarea:focus {
+      border-color: var(--a1);
+    }
+
+    .fg textarea {
+      min-height: 72px;
+      font-size: 12px;
+    }
+
+    .lgrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .btnlg {
+      font-family: var(--fc);
+      font-size: 10px;
+      letter-spacing: .06em;
+      background: var(--ink);
+      border: 1px solid var(--rim2);
+      color: var(--txt2);
+      padding: 6px 12px;
+      cursor: none;
+      border-radius: var(--r);
+      transition: all .18s;
+    }
+
+    .btnlg:hover {
+      border-color: var(--a1);
+      color: var(--a1);
+    }
+
+    .lgok {
+      font-family: var(--fc);
+      font-size: 10px;
+      color: var(--a5);
+    }
+
+    .btn-ae {
+      width: 100%;
+      background: transparent;
+      border: 1px dashed var(--rim2);
+      color: var(--txt3);
+      font-family: var(--fc);
+      font-size: 11px;
+      letter-spacing: .08em;
+      padding: 12px;
+      cursor: none;
+      border-radius: var(--r);
+      transition: all .22s;
+      margin-top: 6px;
+    }
+
+    .btn-ae:hover {
+      border-color: var(--a1);
+      color: var(--a1);
+      background: var(--g1);
+    }
+
+    /* reveal */
+    .rv {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .rv.vis {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* footer */
+    footer {
+      border-top: 1px solid var(--rim);
+      padding: 32px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ft-n {
+      font-family: var(--fh);
+      font-size: 14px;
+      font-weight: 700;
+      background: var(--grad-txt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ft-s {
+      font-family: var(--fc);
+      font-size: 11px;
+      color: var(--txt3);
+    }
+
+    /* ── LARGE DESKTOP ── */
+    @media(max-width:1200px) {
+      nav {
+        padding: 0 32px;
+      }
+
+      .h-info {
+        padding: 72px 40px 52px;
+      }
+
+      .sec {
+        padding: 80px 40px;
+      }
+
+      .sec::after {
+        right: 40px;
+      }
+
+      footer {
+        padding: 28px 40px;
+      }
+
+      .ebar {
+        padding: 0 40px;
+      }
+
+      .hed-wrap {
+        padding: 0 40px;
+      }
+    }
+
+    /* ── LAPTOP / TABLET LANDSCAPE ── */
+    @media(max-width:1060px) {
+      .hero {
+        grid-template-columns: 1fr 320px;
+      }
+
+      .h-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .h-stats .st:nth-child(2) {
+        border-right: none;
+      }
+
+      .h-stats .st:nth-child(3) {
+        border-top: 1px solid var(--rim);
+      }
+    }
+
+    /* ── TABLET PORTRAIT / LARGE PHONE ── */
+    @media(max-width:820px) {
+
+      /* NAV */
+      nav {
+        padding: 0 18px;
+        height: 56px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      /* HERO: stack vertically */
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .h-info {
+        border-right: none;
+        border-bottom: 1px solid var(--rim);
+        padding: 80px 18px 36px;
+      }
+
+      .h-gallery {
+        min-height: 56vw;
+        max-height: 420px;
+      }
+
+      /* STATS: 2x2 grid */
+      .h-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .h-stats .st:nth-child(2) {
+        border-right: none;
+      }
+
+      .h-stats .st:nth-child(3) {
+        border-top: 1px solid var(--rim);
+        border-right: 1px solid var(--rim);
+      }
+
+      .h-stats .st:nth-child(4) {
+        border-top: 1px solid var(--rim);
+        border-right: none;
+      }
+
+      /* HERO EDITOR */
+      .hed-wrap {
+        padding: 0 18px;
+      }
+
+      /* SECTIONS */
+      .sec {
+        padding: 56px 18px;
+      }
+
+      .sec::after {
+        display: none;
+      }
+
+      .sec-hd {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 32px;
+        padding-bottom: 18px;
+      }
+
+      .sec-ctrl {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      /* GRIDS */
+      .sk-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ct-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .f2 {
+        grid-template-columns: 1fr;
+      }
+
+      /* FOOTER / BARS */
+      footer {
+        padding: 24px 18px;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+      }
+
+      .ebar {
+        padding: 0 18px;
+      }
+    }
+
+    /* ── PHONE (iPhone XR = 414px, SE = 375px) ── */
+    @media(max-width:480px) {
+
+      /* NAV */
+      nav {
+        padding: 0 14px;
+        height: 52px;
+      }
+
+      .nav-brand {
+        font-size: 13px;
+      }
+
+      /* NAME: pure vw so it always fits on one line, never breaks */
+      .nl1,
+      .nl2 {
+        font-size: 8vw;
+      }
+
+      .nl3 {
+        font-size: 11px;
+        letter-spacing: .04em;
+      }
+
+      .h-info {
+        padding: 68px 14px 32px;
+      }
+
+      .h-badge {
+        font-size: 10px;
+        padding: 5px 12px;
+      }
+
+      .h-role {
+        font-size: 12px;
+      }
+
+      .ab-tx {
+        font-size: 13px;
+      }
+
+      /* STATS: stay 2x2 but tighter */
+      .st-n {
+        font-size: 20px;
+      }
+
+      .st {
+        padding: 10px 8px;
+      }
+
+      /* LINKS: stack if needed */
+      .h-links {
+        gap: 6px;
+      }
+
+      .hl {
+        font-size: 10px;
+        padding: 6px 12px;
+      }
+
+      /* GALLERY */
+      .h-gallery {
+        min-height: 260px;
+        max-height: 320px;
+      }
+
+      .gbar {
+        padding: 10px 14px;
+      }
+
+      .gfoot {
+        padding: 10px 14px;
+      }
+
+      .gcounter {
+        font-size: 28px;
+      }
+
+      /* SECTION HEADINGS */
+      .sec {
+        padding: 48px 14px;
+      }
+
+      .sec-tit {
+        font-size: clamp(24px, 7vw, 36px);
+      }
+
+      .sec-ctrl {
+        gap: 6px;
+      }
+
+      .swb {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+      }
+
+      .swpg {
+        font-size: 10px;
+      }
+
+      .dh {
+        display: none;
+      }
+
+      /* CARDS */
+      .ci {
+        padding: 20px;
+      }
+
+      .ai {
+        padding: 20px;
+        gap: 12px;
+      }
+
+      .cnum,
+      .ai-n {
+        font-size: 36px;
+      }
+
+      .ctit,
+      .ai-tit {
+        font-size: 14px;
+      }
+
+      .cdesc,
+      .ai-desc {
+        font-size: 12px;
+      }
+
+      /* MODAL */
+      .mbox {
+        padding: 28px 20px;
+      }
+
+      .m-title {
+        font-size: 20px;
+      }
+
+      /* EDIT BAR */
+      .ebar {
+        height: 44px;
+      }
+
+      .ebar-lbl {
+        font-size: 10px;
+      }
+
+      .btn-save {
+        padding: 6px 14px;
+        font-size: 10px;
+      }
+
+      /* EDIT PANEL */
+      .edp {
+        padding: 18px;
+      }
+
+      .ei {
+        padding: 14px;
+      }
+
+      .fg input,
+      .fg textarea {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+
+      /* FOOTER */
+      footer {
+        padding: 20px 14px;
+      }
+
+      .ft-n {
+        font-size: 13px;
+      }
+    }
+
+    /* ── VERY SMALL PHONES ── */
+    @media(max-width:380px) {
+
+      .nl1,
+      .nl2 {
+        font-size: 7.2vw;
+      }
+
+      .nl3 {
+        font-size: 10px;
+      }
+
+      .h-info {
+        padding: 62px 12px 26px;
+      }
+
+      .sec {
+        padding: 44px 12px;
+      }
+
+      nav {
+        padding: 0 12px;
+      }
+
+      footer {
+        padding: 18px 12px;
+      }
+
+      .ebar {
+        padding: 0 12px;
+      }
+
+      .hed-wrap {
+        padding: 0 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="blobs">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="blob b4"></div>
+  </div>
+  <div id="cd"></div>
+  <div id="cr"></div>
+
+  <div class="ebar" id="ebar">
+    <span class="ebar-lbl">✦ EDIT MODE ACTIVE — open any section to modify</span>
+    <button class="btn-save" onclick="exitEdit()">Exit &amp; Save</button>
+  </div>
+
+  <div class="mbg" id="pwM">
+    <div class="mbox">
+      <button class="m-x" onclick="closePw()">&#215;</button>
+      <div class="m-tag">auth.unlock()</div>
+      <h2 class="m-title">Edit Portfolio</h2>
+      <p class="m-sub">Password required to enable editing</p>
+      <label class="m-lbl">password</label>
+      <input class="m-inp" type="password" id="pwIn" onkeydown="if(event.key==='Enter')chkPw()"
+        placeholder="••••••••••" />
+      <div class="m-err" id="pwErr">// Incorrect password</div>
+      <button class="m-btn" onclick="chkPw()">Authenticate →</button>
+    </div>
+  </div>
+
+  <!-- Photo URL modal -->
+  <div class="mbg" id="phM">
+    <div class="mbox">
+      <button class="m-x" onclick="$('phM').classList.remove('on')">&#215;</button>
+      <div class="m-tag">photo.add()</div>
+      <h2 class="m-title">Add Photo</h2>
+      <p class="m-sub">Paste a Google Drive share link to your photo</p>
+      <label class="m-lbl">Google Drive link</label>
+      <input class="m-inp" type="url" id="phUrl" placeholder="https://drive.google.com/file/d/..."
+        onkeydown="if(event.key==='Enter')confirmPh()" />
+      <div class="m-err" id="phErr">// Invalid or non-Google Drive URL</div>
+      <button class="m-btn" onclick="confirmPh()">Add Photo →</button>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-brand">JPE.portfolio</div>
+    <ul class="nav-links">
+      <li><a href="#hero">home</a></li>
+      <li><a href="#education">education</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#achievements">honors</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <div class="nav-end">
+      <div class="n-ping">
+        <div class="pdt"></div>available
+      </div>
+      <button class="btn-ed-nav" id="edBtn" onclick="openPw()">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+        </svg>
+        edit
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="h-info">
+      <div class="h-badge" id="hBadge">Computer Engineer</div>
+      <h1 class="h-name">
+        <span class="nl1" id="hFirst">Johndaleverth</span>
+        <span class="nl2" id="hLast">Echanova</span>
+        <span class="nl3" id="hMid">Pastorfide</span>
+      </h1>
+      <div class="h-role">
+        <span class="rchip" id="hChip">CpE</span>
+        <span id="hSpec">Programming · Embedded Systems · Multimedia Production</span>
+      </div>
+      <div class="h-about">
+        <div class="ab-ey">about_me</div>
+        <p class="ab-tx" id="hAbout">Computer Engineer with a strong background in programming, robotics, web
+          development, and system design — complemented by multimedia production skills. I have hands-on experience in
+          debugging, circuit building, coding system logic, and troubleshooting both hardware and software systems.
+          Hardworking, detail-oriented, and fast-learning individual who adapts quickly to new technologies and
+          environments.</p>
+      </div>
+      <div class="h-stats">
+        <div class="st">
+          <div class="st-n" id="sP">7</div>
+          <div class="st-l">Projects</div>
+        </div>
+        <div class="st">
+          <div class="st-n" id="sA">5</div>
+          <div class="st-l">Awards</div>
+        </div>
+        <div class="st">
+          <div class="st-n" id="sY">BS</div>
+          <div class="st-l">CpE Graduate</div>
+        </div>
+        <div class="st">
+          <div class="st-n" id="sL">7</div>
+          <div class="st-l">Languages</div>
+        </div>
+      </div>
+      <div class="h-links">
+        <a class="hl" id="lgh" href="https://github.com/dalerivatives" target="_blank">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+          GitHub
+        </a>
+        <a class="hl" id="lweb" href="https://johndaleverth.lovable.app" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <path
+              d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+          Portfolio
+        </a>
+        <a class="hl" id="lem" href="mailto:johndaleverthpechanova@gmail.com">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </svg>
+          Email
+        </a>
+      </div>
+    </div>
+
+    <div class="h-gallery">
+      <div class="gmesh"></div>
+      <div class="gbar">
+        <div class="gbar-l">
+          <div class="gbdots">
+            <div class="gbd r"></div>
+            <div class="gbd y"></div>
+            <div class="gbd g"></div>
+          </div>
+          <div class="gbar-title">profile_photos &nbsp;·&nbsp; <b id="gFile">no photos yet</b></div>
+        </div>
+        <div class="gbar-r">
+          <button class="gnbtn" onclick="sph(-1)">&#8249;</button>
+          <span class="gidx" id="gIdx">0/0</span>
+          <button class="gnbtn" onclick="sph(1)">&#8250;</button>
+        </div>
+      </div>
+      <div class="gsw" id="gsw">
+        <div class="gtrack" id="gtrack"></div>
+      </div>
+      <div class="gfoot">
+        <div class="gdots" id="gdots"></div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button class="gadd gclear" onclick="ifEM(()=>{if(confirm('Delete all photos?')){PH=[];PI=0;rPh();}})">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14H6L5 6" />
+            </svg>
+            clear_all()
+          </button>
+          <button class="gadd" onclick="openPhModal()">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            add_photo()
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hed-wrap" id="hedwrap" style="padding-top:0;padding-bottom:0;">
+    <div class="edp" id="hero-ed">
+      <div class="edp-hd">edit_hero()</div>
+      <div class="f2">
+        <div class="fg"><label>First Name</label><input id="efn" oninput="lv('hFirst',this.value)" /></div>
+        <div class="fg"><label>Middle Name</label><input id="emn" oninput="lv('hMid',this.value)" /></div>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>Last Name</label><input id="eln" oninput="lv('hLast',this.value)" /></div>
+        <div class="fg"><label>Badge Text</label><input id="ebd" oninput="lv('hBadge',this.value)" /></div>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>Chip (short role)</label><input id="ecp" oninput="lv('hChip',this.value)" /></div>
+        <div class="fg"><label>Specialization</label><input id="esp" oninput="lv('hSpec',this.value)" /></div>
+      </div>
+      <div class="fg"><label>About Me</label><textarea id="eab" rows="4" oninput="lv('hAbout',this.value)"></textarea>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>Stat — Projects</label><input id="es1" oninput="lv('sP',this.value)" /></div>
+        <div class="fg"><label>Stat — Awards</label><input id="es2" oninput="lv('sA',this.value)" /></div>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>Stat — Years Exp</label><input id="es3" oninput="lv('sY',this.value)" /></div>
+        <div class="fg"><label>Stat — Languages</label><input id="es4" oninput="lv('sL',this.value)" /></div>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>GitHub URL</label><input id="egh" oninput="sa('lgh','href',this.value)" /></div>
+        <div class="fg"><label>Portfolio URL</label><input id="ewb" oninput="sa('lweb','href',this.value)" /></div>
+      </div>
+      <div class="fg"><label>Email Address</label><input id="eem" oninput="sa('lem','href','mailto:'+this.value)" />
+      </div>
+    </div>
+  </div>
+
+  <section class="sec rv" id="education" data-n="01">
+    <div class="sec-hd">
+      <div>
+        <div class="sec-kick" style="color:var(--a1)">education</div>
+        <h2 class="sec-tit">Academic <span class="gt">Background</span></h2>
+      </div>
+      <div class="sec-ctrl">
+        <span class="dh"><span class="dha">→</span> drag</span>
+        <div class="swb-wrap"><button class="swb" onclick="sw('edu',-1)">‹</button><button class="swb"
+            onclick="sw('edu',1)">›</button></div>
+        <span class="swpg" id="eduPg">1/4</span>
+        <button class="btn-sec-ed" onclick="tog('edu-ed')">✦ Edit</button>
+      </div>
+    </div>
+    <div class="sw-wrap" id="eduW">
+      <div class="sw-track" id="eduT"></div>
+    </div>
+    <div class="sw-dots" id="eduD"></div>
+    <div class="edp" id="edu-ed">
+      <div class="edp-hd">edit_education()</div>
+      <div id="eduEL"></div><button class="btn-ae" onclick="add('edu')">+ add_entry()</button>
+    </div>
+  </section>
+
+  <section class="sec rv" id="certifications" data-n="02">
+    <div class="sec-hd">
+      <div>
+        <div class="sec-kick" style="color:var(--a2)">certifications</div>
+        <h2 class="sec-tit">Certificates <span class="gc">&amp; Training</span></h2>
+      </div>
+      <div class="sec-ctrl">
+        <span class="dh"><span class="dha">→</span> drag</span>
+        <div class="swb-wrap"><button class="swb" onclick="sw('cert',-1)">‹</button><button class="swb"
+            onclick="sw('cert',1)">›</button></div>
+        <span class="swpg" id="certPg">1/1</span>
+        <button class="btn-sec-ed" onclick="tog('cert-ed')">✦ Edit</button>
+      </div>
+    </div>
+    <div class="sw-wrap" id="certW">
+      <div class="sw-track" id="certT"></div>
+    </div>
+    <div class="sw-dots" id="certD"></div>
+    <div class="edp" id="cert-ed">
+      <div class="edp-hd">edit_certifications()</div>
+      <div id="certEL"></div><button class="btn-ae" onclick="add('cert')">+ add_certificate()</button>
+    </div>
+  </section>
+
+  <section class="sec rv" id="skills" data-n="03">
+    <div class="sec-hd">
+      <div>
+        <div class="sec-kick" style="color:var(--a3)">skills</div>
+        <h2 class="sec-tit">Technical <span class="gf">Competencies</span></h2>
+      </div>
+      <div class="sec-ctrl"><button class="btn-sec-ed" onclick="tog('skills-ed')">✦ Edit</button></div>
+    </div>
+    <div class="sk-grid" id="skGrid"></div>
+    <div class="edp" id="skills-ed">
+      <div class="edp-hd">edit_skills()</div>
+      <div id="skillsEL"></div><button class="btn-ae" onclick="addSkCat()">+ add_category()</button>
+    </div>
+  </section>
+
+  <section class="sec rv" id="projects" data-n="04">
+    <div class="sec-hd">
+      <div>
+        <div class="sec-kick" style="color:var(--a4)">projects</div>
+        <h2 class="sec-tit">Engineering <span class="gw">Projects</span></h2>
+      </div>
+      <div class="sec-ctrl">
+        <span class="dh"><span class="dha">→</span> drag</span>
+        <div class="swb-wrap"><button class="swb" onclick="sw('proj',-1)">‹</button><button class="swb"
+            onclick="sw('proj',1)">›</button></div>
+        <span class="swpg" id="projPg">1/7</span>
+        <button class="btn-sec-ed" onclick="tog('proj-ed')">✦ Edit</button>
+      </div>
+    </div>
+    <div class="sw-wrap" id="projW">
+      <div class="sw-track" id="projT"></div>
+    </div>
+    <div class="sw-dots" id="projD"></div>
+    <div class="edp" id="proj-ed">
+      <div class="edp-hd">edit_projects() — paste YouTube or Google Drive URL per project for demo video</div>
+      <div id="projEL"></div><button class="btn-ae" onclick="add('proj')">+ add_project()</button>
+    </div>
+  </section>
+
+  <section class="sec rv" id="achievements" data-n="05">
+    <div class="sec-hd">
+      <div>
+        <div class="sec-kick" style="color:var(--a4)">achievements</div>
+        <h2 class="sec-tit">Awards <span class="gw">&amp; Recognition</span></h2>
+      </div>
+      <div class="sec-ctrl">
+        <span class="dh"><span class="dha">→</span> drag</span>
+        <div class="swb-wrap"><button class="swb" onclick="sw('ach',-1)">‹</button><button class="swb"
+            onclick="sw('ach',1)">›</button></div>
+        <span class="swpg" id="achPg">1/3</span>
+        <button class="btn-sec-ed" onclick="tog('ach-ed')">✦ Edit</button>
+      </div>
+    </div>
+    <div class="sw-wrap" id="achW">
+      <div class="sw-track" id="achT"></div>
+    </div>
+    <div class="sw-dots" id="achD"></div>
+    <div class="edp" id="ach-ed">
+      <div class="edp-hd">edit_achievements()</div>
+      <div id="achEL"></div><button class="btn-ae" onclick="add('ach')">+ add_achievement()</button>
+    </div>
+  </section>
+
+  <section class="sec rv" id="seminars" data-n="06">
+    <div class="sec-hd">
+      <div>
+        <div class="sec-kick" style="color:var(--a5)">seminars</div>
+        <h2 class="sec-tit">Seminars <span class="gc">&amp; Trainings</span></h2>
+      </div>
+      <div class="sec-ctrl">
+        <span class="dh"><span class="dha">→</span> drag</span>
+        <div class="swb-wrap"><button class="swb" onclick="sw('sem',-1)">‹</button><button class="swb"
+            onclick="sw('sem',1)">›</button></div>
+        <span class="swpg" id="semPg">1/4</span>
+        <button class="btn-sec-ed" onclick="tog('sem-ed')">✦ Edit</button>
+      </div>
+    </div>
+    <div class="sw-wrap" id="semW">
+      <div class="sw-track" id="semT"></div>
+    </div>
+    <div class="sw-dots" id="semD"></div>
+    <div class="edp" id="sem-ed">
+      <div class="edp-hd">edit_seminars()</div>
+      <div id="semEL"></div><button class="btn-ae" onclick="add('sem')">+ add_seminar()</button>
+    </div>
+  </section>
+
+  <section class="sec rv" id="experience" data-n="07">
+    <div class="sec-hd">
+      <div>
+        <div class="sec-kick" style="color:var(--a1)">experience</div>
+        <h2 class="sec-tit">Professional <span class="gt">Experience</span></h2>
+      </div>
+      <div class="sec-ctrl">
+        <span class="dh"><span class="dha">→</span> drag</span>
+        <div class="swb-wrap"><button class="swb" onclick="sw('exp',-1)">‹</button><button class="swb"
+            onclick="sw('exp',1)">›</button></div>
+        <span class="swpg" id="expPg">1/2</span>
+        <button class="btn-sec-ed" onclick="tog('exp-ed')">✦ Edit</button>
+      </div>
+    </div>
+    <div class="sw-wrap" id="expW">
+      <div class="sw-track" id="expT"></div>
+    </div>
+    <div class="sw-dots" id="expD"></div>
+    <div class="edp" id="exp-ed">
+      <div class="edp-hd">edit_experience()</div>
+      <div id="expEL"></div><button class="btn-ae" onclick="add('exp')">+ add_experience()</button>
+    </div>
+  </section>
+
+  <section class="sec rv" id="contact" data-n="08">
+    <div class="sec-hd">
+      <div>
+        <div class="sec-kick" style="color:var(--a2)">contact</div>
+        <h2 class="sec-tit">Get In <span class="gc">Touch</span></h2>
+      </div>
+      <div class="sec-ctrl"><button class="btn-sec-ed" onclick="tog('contact-ed')">✦ Edit</button></div>
+    </div>
+    <div class="ct-grid" id="ctGrid"></div>
+    <div class="edp" id="contact-ed">
+      <div class="edp-hd">edit_contact()</div>
+      <div id="ctEL"></div><button class="btn-ae" onclick="addCt()">+ add_contact()</button>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="ft-n">Johndaleverth Pastorfide Echanova</div>
+      <div class="ft-s">Computer Engineer · BS CpE · Marinduque, Philippines</div>
+    </div>
+    <div class="ft-s">Creations Build Reality ✦</div>
+  </footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const CD = $('cd'), CR = $('cr');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; CD.style.transform = `translate(${mx - 4}px,${my - 4}px)`; });
+    (function tick() { rx += (mx - rx) * .11; ry += (my - ry) * .11; CR.style.transform = `translate(${rx - 16}px,${ry - 16}px)`; requestAnimationFrame(tick); })();
+    document.querySelectorAll('button,a,input,textarea,.ci,.ai,.clogo,.swb,.gnbtn').forEach(el => {
+      el.addEventListener('mouseenter', () => CR.classList.add('big'));
+      el.addEventListener('mouseleave', () => CR.classList.remove('big'));
+    });
+    document.querySelectorAll('.rv').forEach(el => new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('vis')), { threshold: .05 }).observe(el));
+
+    const PW = 'engineer2025'; let EM = false;
+    function openPw() { if (EM) { exitEdit(); return; } $('pwM').classList.add('on'); setTimeout(() => $('pwIn').focus(), 80); }
+    function closePw() { $('pwM').classList.remove('on'); $('pwIn').value = ''; $('pwErr').style.display = 'none'; }
+    function chkPw() { if ($('pwIn').value === PW) { closePw(); enterEdit(); } else { $('pwErr').style.display = 'block'; $('pwIn').value = ''; $('pwIn').focus(); } }
+    function enterEdit() {
+      EM = true; document.body.classList.add('em'); $('ebar').classList.add('on'); $('edBtn').classList.add('on');
+      $('edBtn').lastChild.textContent = 'editing';
+      $('hero-ed').classList.add('on');
+      $('hedwrap').style.paddingTop = '32px'; $('hedwrap').style.paddingBottom = '32px';
+      const f = (id, v) => { const e = $(id); if (e) e.value = v || ''; };
+      f('efn', gt('hFirst')); f('emn', gt('hMid')); f('eln', gt('hLast')); f('ebd', gt('hBadge'));
+      f('ecp', gt('hChip')); f('esp', gt('hSpec')); f('eab', gt('hAbout'));
+      f('es1', gt('sP')); f('es2', gt('sA')); f('es3', gt('sY')); f('es4', gt('sL'));
+      f('egh', $('lgh').href); f('ewb', $('lweb').href);
+      f('eem', ($('lem').href || '').replace('mailto:', ''));
+    }
+    function exitEdit() {
+      EM = false; document.body.classList.remove('em'); $('ebar').classList.remove('on');
+      $('edBtn').classList.remove('on'); $('edBtn').lastChild.textContent = 'edit';
+      document.querySelectorAll('.edp.on').forEach(e => e.classList.remove('on')); save();
+    }
+    function ifEM(fn) { if (EM) fn(); }
+    function tog(id) { if (!EM) return; $(id).classList.toggle('on'); }
+    function gt(id) { const e = $(id); return e ? e.textContent : ''; }
+    function lv(id, v) { const e = $(id); if (e) e.textContent = v; }
+    function sa(id, attr, v) { const e = $(id); if (e) e.setAttribute(attr, v); }
+
+    function snap() { return { fn: gt('hFirst'), mn: gt('hMid'), ln: gt('hLast'), bd: gt('hBadge'), cp: gt('hChip'), sp: gt('hSpec'), ab: gt('hAbout'), s1: gt('sP'), s2: gt('sA'), s3: gt('sY'), s4: gt('sL'), gh: $('lgh').href, web: $('lweb').href, em: ($('lem').href || '').replace('mailto:', '') }; }
+    function save() { try { localStorage.setItem('jpe_v7', JSON.stringify({ h: snap(), ph: PH, edu: D.edu, cert: D.cert, sk: D.sk, proj: D.proj, ach: D.ach, sem: D.sem, exp: D.exp, ct: D.ct })); } catch (e) { } }
+    function loadS() {
+      try {
+        const raw = localStorage.getItem('jpe_v7'); if (!raw) return;
+        const d = JSON.parse(raw);
+        if (d.h) {
+          const h = d.h, s = (id, v) => { const e = $(id); if (e && v !== undefined) e.textContent = v; };
+          s('hFirst', h.fn); s('hMid', h.mn); s('hLast', h.ln); s('hBadge', h.bd); s('hChip', h.cp); s('hSpec', h.sp); s('hAbout', h.ab); s('sP', h.s1); s('sA', h.s2); s('sY', h.s3); s('sL', h.s4);
+          if (h.gh) $('lgh').href = h.gh; if (h.web) $('lweb').href = h.web; if (h.em) $('lem').href = 'mailto:' + h.em;
+        }
+        if (d.ph) PH = d.ph;
+        if (d.edu) D.edu = d.edu; if (d.cert) D.cert = d.cert; if (d.sk) D.sk = d.sk;
+        if (d.proj) D.proj = d.proj; if (d.ach) D.ach = d.ach; if (d.sem) D.sem = d.sem;
+        if (d.exp) D.exp = d.exp; if (d.ct) D.ct = d.ct;
+      } catch (e) { }
+    }
+
+    let PH = [], PI = 0;
+    function rPh() {
+      const track = $('gtrack'), dots = $('gdots'), idx = $('gIdx'), gf = $('gFile');
+      if (!PH.length) {
+        track.innerHTML = `<div class="gslide"><div class="gph" onclick="ifEM(openPhModal)"><div class="gph-ic"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div><div class="gph-tx">No photos yet<br/><span style="font-size:10px;opacity:.5">Edit mode → add_photo() → paste URL</span></div></div></div>`;
+        dots.innerHTML = ''; idx.textContent = '0/0'; if (gf) gf.textContent = 'no photos'; return;
+      }
+      if (PI >= PH.length) PI = PH.length - 1;
+      track.innerHTML = PH.map((src, i) => `<div class="gslide"><img src="${src}" alt="Photo ${i + 1}" loading="lazy"/><div class="gfade"></div><div class="gcaption"><span class="gcounter">${String(i + 1).padStart(2, '0')}</span><span class="gtag">profile</span></div><div class="gov"><button class="gov-add" onclick="ifEM(openPhModal)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>add photo</button><button class="gov-del" onclick="ifEM(()=>delPh(${i}))"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>delete</button></div></div>`).join('');
+      track.style.transform = `translateX(-${PI * 100}%)`;
+      dots.innerHTML = PH.map((_, i) => `<div class="gdot${i === PI ? ' on' : ''}" onclick="gp(${i})"></div>`).join('');
+      idx.textContent = `${PI + 1}/${PH.length}`;
+      if (gf) gf.textContent = `${PH.length} photo${PH.length > 1 ? 's' : ''}`;
+    }
+    function sph(d) { if (!PH.length) return; PI = Math.max(0, Math.min(PI + d, PH.length - 1)); $('gtrack').style.transform = `translateX(-${PI * 100}%)`; document.querySelectorAll('.gdot').forEach((el, i) => el.classList.toggle('on', i === PI)); $('gIdx').textContent = `${PI + 1}/${PH.length}`; }
+    function gp(i) { PI = i; sph(0); }
+    function delPh(i) { PH.splice(i, 1); if (PI >= PH.length) PI = Math.max(0, PH.length - 1); rPh(); }
+    function openPhModal() { if (!EM) return; $('phUrl').value = ''; $('phErr').style.display = 'none'; $('phM').classList.add('on'); setTimeout(() => $('phUrl').focus(), 80); }
+    function confirmPh() {
+      const raw = $('phUrl').value.trim();
+      if (!raw || !raw.includes('drive.google.com')) { $('phErr').style.display = 'block'; return; }
+      const url = gdImg(raw);
+      PH.push(url); PI = PH.length - 1; rPh(); $('phM').classList.remove('on');
+    }
+    (function () { let sx = 0, drag = false; window.addEventListener('load', () => { const w = $('gsw'); if (!w) return; w.addEventListener('touchstart', e => { sx = e.touches[0].clientX; drag = true; }, { passive: true }); w.addEventListener('touchend', e => { if (!drag) return; const dx = sx - e.changedTouches[0].clientX; if (Math.abs(dx) > 40) sph(dx > 0 ? 1 : -1); drag = false; }); w.addEventListener('mousedown', e => { sx = e.clientX; drag = true; e.preventDefault(); }); window.addEventListener('mouseup', e => { if (!drag) return; const dx = sx - e.clientX; if (Math.abs(dx) > 50) sph(dx > 0 ? 1 : -1); drag = false; }); }); })();
+
+    const D = {
+      edu: [
+        { period: '2022–2026', title: 'BS Computer Engineering', institution: 'Marinduque State University', desc: 'Completed Bachelor of Science in Computer Engineering at Marinduque State University. Consistent Mid-Level Learner with focus on embedded systems, programming, and system design.', logo: '' },
+        { period: '2020–2022', title: 'Senior High School — With High Honors', institution: 'Makapuyat National High School', desc: 'Graduated With High Honors. STEM 12-A student with consistent GSA of 94.625%. Active in science, technology, and mathematics programs.', logo: '' },
+        { period: '2016–2020', title: 'Junior High School — With Honors', institution: 'Makapuyat National High School', desc: 'Graduated With Honors. Participated in district-level academic competitions and mathematics programs.', logo: '' },
+        { period: '2010–2016', title: 'Primary Education — Consistent Achiever', institution: 'Escuela De Gratia Plena Incorporated', desc: 'Recognized as a Consistent Achiever throughout primary education.', logo: '' }
+      ],
+      cert: [
+        { period: 'April 11, 2025', title: '10-Hr Basic OSH Training Course for SO1 + TOT', institution: 'Think Safe Training, Consultancy & Services Corp.', desc: 'DOLE-OSH accredited certificate of completion. Covers workplace safety standards, hazard identification, occupational health, and 2-hour Training of Trainer (TOT). Issued in Quezon City.', logo: '' },
+        { period: 'January 31, 2025', title: 'Certificate of Appreciation — ICpEP R4B Technical Committee', institution: 'ICpEP, Marinduque State University', desc: 'Awarded for invaluable contribution as Technical Committee member during ICpEP R4B General Assembly and CpE Challenge 2025 — "Pioneering Innovation: Optimizing AI for Sustainable Transformation."', logo: '' },
+        { period: 'June 14, 2025', title: 'Certificate of Participation — Blockchain is not just Crypto', institution: 'ICpEP Singapore & Saudi Arabia Chapters', desc: 'Participated in the international online webinar organized by ICpEP Philippines, Student Edition, Singapore, and Saudi Arabia chapters.', logo: '' }
+      ],
+      sk: [
+        { cat: 'Programming Languages', tags: ['Arduino (C/C++)', 'Kotlin', 'Java', 'Python', 'HTML', 'CSS', 'JavaScript'] },
+        { cat: 'Hardware & Embedded Systems', tags: ['Arduino System Design', 'Ultrasonic Sensors', 'IR Sensors', 'Fingerprint Modules', 'Actuators & Relays', 'Servo Motors', 'LCD I2C 1602', 'Circuit Wiring', 'Breadboarding', 'Soldering'] },
+        { cat: 'Software & Dev Tools', tags: ['Android Studio', 'Visual Studio Code', 'Cisco Packet Tracer', 'AutoCAD', 'Git / GitHub', 'TinkerCAD', 'Fritzing', 'LiveWire', 'OBS Studio'] },
+        { cat: 'Multimedia & Creative', tags: ['Adobe Premiere Pro', 'Adobe Audition', 'Adobe Photoshop', 'Pro Tools', 'Canva'] },
+        { cat: 'Skills & Competencies', tags: ['Analytical & Problem Solving', 'Independent & Team Work', 'Communication & Documentation', 'Time Management', 'Adaptable & Fast Learner', 'Detail-Oriented', 'Leadership & Mentoring', 'Hands-on HW/SW Skills'] }
+      ],
+      proj: [
+        { title: 'Smart Change Dispenser', cat: 'Embedded Systems', desc: 'Designed and developed a system that automatically calculates and dispenses correct coin change based on entered fare. Integrated microcontroller logic, coin sorting mechanisms, and actuators for reliable operations.', tags: ['Arduino', 'C/C++', 'Actuators', 'Coin Sorting'], logo: '', video: '' },
+        { title: 'Smart Rice Vending Machine', cat: 'Automation', desc: 'Automated rice vending system managing inventory, processing transactions, and dispensing rice portions efficiently using microcontroller-based control with sensors and mechanical components.', tags: ['Arduino', 'Sensors', 'Actuators'], logo: '', video: '' },
+        { title: 'Smart Waste Bin', cat: 'IoT / Contactless', desc: 'Waste bin that automatically opens and sprays alcohol for safe and hygienic garbage collection. Integrated sensors, actuators, and automated timing systems for hands-free operation.', tags: ['Arduino', 'Motion Sensors', 'Relay Timer'], logo: '', video: '' },
+        { title: 'Fingerprint-Based Attendance System', cat: 'Biometrics', desc: 'Secure attendance tracking using a fingerprint sensor and Arduino. Integrated keypad and LCD module for user authentication, real-time attendance display, and data recording.', tags: ['Fingerprint Sensor', 'Arduino', 'LCD I2C', 'Keypad'], logo: '', video: '' },
+        { title: 'Solar-Powered Garbage Bottle Collector', cat: 'Green Tech', desc: 'Implemented ultrasonic detection and relay-based timer logic for a solar-powered system. Displays real-time operational status and accumulated relay activation time on LCD module.', tags: ['Solar', 'Ultrasonic', 'Relay Logic', 'LCD'], logo: '', video: '' },
+        { title: 'Drop Alarm — Android App', cat: 'Mobile Development', desc: 'Mobile app that detects when a phone is dropped from a height and triggers an alarm to prevent damage. Developed using Kotlin in Android Studio.', tags: ['Kotlin', 'Android Studio', 'Sensor API'], logo: '', video: '' },
+        { title: 'Swift Transact Website', cat: 'Web Development', desc: 'Web application for transaction management and product money flow tracking. Implemented secure payment handling, user management, and administrative functions.', tags: ['HTML', 'CSS', 'JavaScript'], logo: '', video: '' }
+      ],
+      ach: [
+        { icon: '🏆', title: 'Best in Capstone Project', year: 'June 2022', desc: 'Recognized for excellence in capstone project development — demonstrating strong system design, technical implementation, and problem-solving skills.' },
+        { icon: '🥇', title: 'Champion — District Science & Technology Fair', year: '2022', desc: 'First place at the District-level Science and Technology Fair for outstanding innovative engineering work.' },
+        { icon: '⚙️', title: 'Technical Committee Member — ICpEP R4B', year: 'January 2025', desc: 'Served as Technical Committee member for ICpEP R4B General Assembly and CpE Challenge 2025 at Marinduque State University — Boac Campus.' },
+        { icon: '🎓', title: 'With High Honors — Senior High School', year: '2020–2022', desc: 'Graduated With High Honors from Makapuyat National High School, STEM 12-A. Achieved GSA of 94.625%.' },
+        { icon: '📐', title: 'With Honors — Junior High School', year: '2016–2020', desc: 'Graduated With Honors from Makapuyat National High School. Participated in district-level academic and math competitions.' }
+      ],
+      sem: [
+        { period: 'November 24, 2023', title: 'IECEP MSC-SC Seminar — Sparking Innovations in Fields Research', institution: 'IECEP / Marinduque State College', desc: 'Covered topics on Intellectual Property Rights, Invention Spotting, and Prior Art Search.', logo: '' },
+        { period: 'February 1, 2024', title: 'Regional ICpEP Challenge 2023: MSC-ICpEP.se Experience', institution: 'Marinduque State College — College of Engineering', desc: 'Active participation in the 2024 Regional CpE Seminar Experience.', logo: '' },
+        { period: 'February 20, 2024', title: 'Seminar for Mental Health — Engineering Minds', institution: 'Engineering Student Organization, Marinduque State College', desc: 'Theme: "Challenging the Stigma, Reach out, Build Bridges." Held at Marinduque State College, Tanza, Boac.', logo: '' },
+        { period: 'November 20, 2024', title: 'Fundamentals of Image Processing using MATLAB and OpenCV', institution: 'Marinduque State University — Dept. of Computer Engineering', desc: 'Certificate of Appreciation for valuable participation in the seminar. Held at MarSU Lounge, Tanza, Boac.', logo: '' },
+        { period: 'January 30, 2025', title: 'ICpEP R4B General Assembly 2025 — Pioneering Innovation', institution: 'ICpEP Region 4B', desc: 'Active participation during the ICpEP R4B General Assembly 2025 — "Pioneering Innovation: Optimizing AI for Sustainable Transformation." Held at MarSU Boac Campus.', logo: '' },
+        { period: 'April 4, 2025', title: 'ICpEP.se Team Building 2025', institution: 'MarSU — ICpEP.se', desc: 'Certificate of Participation for active and valuable participation in Team Building 2025 at Family Beach Resort, Ulong, Mogpog.', logo: '' },
+        { period: 'Basic Training', title: 'Basic Arduino and Embedded Systems Workshop', institution: '', desc: 'Hands-on microcontroller programming and embedded hardware development.', logo: '' },
+        { period: 'Training', title: 'Introduction to Mobile Application Development', institution: '', desc: 'Android development tools, workflows, and mobile UX principles.', logo: '' },
+        { period: 'Training', title: 'Networking Fundamentals using Cisco Packet Tracer', institution: '', desc: 'Network architecture, configuration, and simulation using Cisco tools.', logo: '' },
+        { period: 'Training', title: 'Audio and Video Editing using Pro Tools', institution: '', desc: 'Professional audio engineering and video production with industry-standard tools.', logo: '' }
+      ],
+      exp: [
+        { period: '2023–Present', title: 'Technical Mentor — SHS Capstone Projects', institution: 'Makapuyat National High School', desc: 'Provided guidance in designing AutoCAD layouts, programming Arduino Uno, breadboarding circuits, soldering, and connecting components. Assisted students in troubleshooting hardware and software issues.', logo: '' },
+        { period: 'Ongoing', title: 'Freelance Technical Device Repair & Troubleshooting', institution: 'Self-Employed', desc: 'Performs hardware/software diagnostics on electronic devices — LCD, battery, port replacements, OS installation, circuit debugging, and system troubleshooting.', logo: '' },
+        { period: 'Ongoing', title: 'Multimedia & Technical Production', institution: 'Freelance', desc: 'Edits audio and video content, handles recordings, and uses professional tools such as Pro Tools and Adobe suite, combining technical and creative competencies.', logo: '' }
+      ],
+      ct: [
+        { lbl: 'Email', val: 'johndaleverthpechanova@gmail.com', link: 'mailto:johndaleverthpechanova@gmail.com' },
+        { lbl: 'Mobile', val: '0963 946 4579', link: 'tel:09639464579' },
+        { lbl: 'GitHub', val: 'github.com/dalerivatives', link: 'https://github.com/dalerivatives' },
+        { lbl: 'Portfolio', val: 'johndaleverth.lovable.app', link: 'https://johndaleverth.lovable.app' },
+        { lbl: 'Facebook', val: 'Johndaleverth Pastorfide Echanova', link: '#' },
+        { lbl: 'Nationality', val: 'Filipino', link: '#' },
+        { lbl: 'Languages', val: 'English, Filipino', link: '#' },
+        { lbl: 'Location', val: 'Brgy. Buyabod, Santa Cruz, Marinduque, PH', link: '#' },
+        { lbl: 'Availability', val: 'Open for Employment / Professional Opportunities', link: '#' }
+      ]
+    };
+
+    const SS = {};
+    function gv() { const w = window.innerWidth; return w < 600 ? 1 : w < 1000 ? 2 : 3; }
+    function sw(k, d) { const s = SS[k]; if (!s) return; const n = $(k + 'T').children.length; const pg = Math.max(1, n - s.vis + 1); s.idx = Math.max(0, Math.min(s.idx + d, pg - 1)); uSw(k); }
+    function uSw(k) {
+      const s = SS[k]; if (!s) return;
+      const tr = $(k + 'T'), dots = $(k + 'D'), pg = $(k + 'Pg'), n = tr.children.length; if (!n) return;
+      tr.style.transform = `translateX(-${s.idx * (100 / s.vis)}%)`;
+      const pages = Math.max(1, n - s.vis + 1);
+      if (dots) { dots.innerHTML = ''; for (let i = 0; i < pages; i++) { const d = document.createElement('div'); d.className = 'swdot' + (i === s.idx ? ' on' : ''); d.onclick = () => { s.idx = i; uSw(k); }; dots.appendChild(d); } }
+      if (pg) pg.textContent = `${s.idx + 1}/${pages}`;
+    }
+    function eTouch(wid, k) { const w = $(wid); if (!w) return; let sx = 0, dr = false; w.addEventListener('touchstart', e => { sx = e.touches[0].clientX; dr = true; }, { passive: true }); w.addEventListener('touchend', e => { if (!dr) return; if (Math.abs(sx - e.changedTouches[0].clientX) > 40) sw(k, sx > e.changedTouches[0].clientX ? 1 : -1); dr = false; }); w.addEventListener('mousedown', e => { sx = e.clientX; dr = true; e.preventDefault(); }); window.addEventListener('mouseup', e => { if (!dr) return; if (Math.abs(sx - e.clientX) > 56) sw(k, sx > e.clientX ? 1 : -1); dr = false; }); }
+    function eu(u) {
+      if (!u || !u.trim()) return '';
+      const gd = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([a-zA-Z0-9_-]+)/);
+      if (gd) return `https://drive.google.com/file/d/${gd[1]}/preview`;
+      if (u.includes('drive.google.com')) return u;
+      return '';
+    }
+    function gdImg(url) {
+      // Convert any Google Drive share/view link to direct image URL
+      if (!url || !url.trim()) return '';
+      const m = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)([a-zA-Z0-9_-]+)/);
+      if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+      // already a direct uc link
+      if (url.includes('drive.google.com/uc')) return url;
+      return url;
+    }
+    function hLg(k, i, url) { D[k][i].logo = gdImg(url); rAll(); }
+    const esc = s => (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    function rCard(it, i, k) {
+      const vis = SS[k] ? SS[k].vis : 3; const vid = eu(it.video || ''); const hv = 'video' in it;
+      return `<div class="card" style="flex:0 0 calc(100%/${vis})"><div class="ci"><div class="c-hd"><div class="clogo" onclick="ifEM(()=>{const u=prompt('Paste Google Drive image link for logo:');if(u&&u.trim())hLg('${k}',${i},u);})">${it.logo ? `<img src="${it.logo}"/>` : `<span class="clph">◈</span>`}</div><div class="cmeta"><div class="cprd">${esc(it.period || it.year || it.cat || '')}</div><div class="ctit">${esc(it.title)}</div><div class="csub">${esc(it.institution || it.cat || it.org || '')}</div></div></div><div class="cdesc">${esc(it.desc)}</div>${(it.tags || []).length ? `<div class="ctags">${it.tags.map(t => `<span class="ctag">${esc(t)}</span>`).join('')}</div>` : ''}${hv ? `<div class="cvid">${vid ? `<div class="cvid-wrap"><iframe src="${vid}" frameborder="0" allow="autoplay;encrypted-media"></iframe><div class="cvid-block"></div><button class="cvid-del" onclick="ifEM(()=>{D['${k}'][${i}].video='';rAll();})"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>remove</button></div>` : `<div class="cvid-ph"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>paste Google Drive video link in Edit</span></div>`}</div>` : ''}<div class="cnum">${String(i + 1).padStart(2, '0')}</div></div></div>`;
+    }
+
+    function rAch(it, i) { const vis = SS.ach ? SS.ach.vis : 3; return `<div class="card" style="flex:0 0 calc(100%/${vis})"><div class="ai"><div class="ai-ic">${it.icon || '⭐'}</div><div style="flex:1"><div class="ai-yr">${esc(it.year)}</div><div class="ai-tit">${esc(it.title)}</div><div class="ai-desc">${esc(it.desc)}</div></div><div class="ai-n">${String(i + 1).padStart(2, '0')}</div></div></div>`; }
+
+    function rSw(k, data, fn) { const vis = gv(); const pi = SS[k] ? SS[k].idx : 0; SS[k] = { idx: Math.min(pi, Math.max(0, data.length - vis)), vis }; $(k + 'T').innerHTML = data.map((d, i) => fn(d, i, k)).join(''); uSw(k); eTouch(k + 'W', k); }
+    function rSk() { $('skGrid').innerHTML = D.sk.map(c => `<div class="sk-cat"><div class="sk-tit">${esc(c.cat)}</div><div class="sk-tags">${c.tags.map(t => `<span class="sk-tag">${esc(t)}</span>`).join('')}</div></div>`).join(''); }
+    function rCt() { $('ctGrid').innerHTML = D.ct.map(c => `<div class="ct-item"><div class="ct-lbl">${esc(c.lbl)}</div><div class="ct-val">${c.link && c.link != '#' ? `<a href="${esc(c.link)}" target="_blank">${esc(c.val)}</a>` : esc(c.val)}</div></div>`).join(''); }
+
+    const DEF = { edu: { period: '', title: 'New Entry', institution: '', desc: '', logo: '' }, cert: { period: '', title: 'New Certificate', institution: '', desc: '', logo: '' }, proj: { title: 'New Project', cat: '', desc: '', tags: [], logo: '', video: '' }, ach: { icon: '⭐', title: 'New Achievement', year: '', desc: '' }, sem: { period: '', title: 'New Seminar', institution: '', desc: '', logo: '' }, exp: { period: '', title: 'New Experience', institution: '', desc: '', logo: '' } };
+    function add(k) { D[k].push({ ...DEF[k] }); rAll(); }
+    function del(k, i) { D[k].splice(i, 1); rAll(); }
+    function addSkCat() { D.sk.push({ cat: 'New Category', tags: [] }); rAll(); }
+    function delSkCat(i) { D.sk.splice(i, 1); rAll(); }
+    function addCt() { D.ct.push({ lbl: '', val: '', link: '' }); rAll(); }
+    function delCt(i) { D.ct.splice(i, 1); rAll(); }
+
+    function rEds() {
+      ['edu', 'cert', 'sem', 'exp'].forEach(k => {
+        const el = $(k + 'EL'); if (!el) return;
+        el.innerHTML = D[k].map((it, i) => `<div class="ei"><button class="eidel" onclick="del('${k}',${i})">×</button><div class="f2"><div class="fg"><label>Period/Date</label><input value="${esc(it.period || it.year || '')}" oninput="D['${k}'][${i}].period=this.value;D['${k}'][${i}].year=this.value;rSw('${k}',D['${k}'],rCard)"/></div><div class="fg"><label>Title</label><input value="${esc(it.title)}" oninput="D['${k}'][${i}].title=this.value;rSw('${k}',D['${k}'],rCard)"/></div></div><div class="fg"><label>Institution/Org</label><input value="${esc(it.institution || it.org || '')}" oninput="D['${k}'][${i}].institution=this.value;D['${k}'][${i}].org=this.value;rSw('${k}',D['${k}'],rCard)"/></div><div class="fg"><label>Description</label><textarea rows="3" oninput="D['${k}'][${i}].desc=this.value;rSw('${k}',D['${k}'],rCard)">${esc(it.desc)}</textarea></div><div class="fg"><label>Logo — Google Drive Link <button class="btn-clr" onclick="hLg('${k}',${i},'');rAll()" title="Clear logo">✕ clear</button></label><input value="${esc(it.logo || '')}" placeholder="https://drive.google.com/file/d/..." oninput="hLg('${k}',${i},this.value)"/></div></div>`).join('');
+      });
+      const pEL = $('projEL');
+      if (pEL) pEL.innerHTML = D.proj.map((it, i) => `<div class="ei"><button class="eidel" onclick="del('proj',${i})">×</button><div class="f2"><div class="fg"><label>Title</label><input value="${esc(it.title)}" oninput="D.proj[${i}].title=this.value;rSw('proj',D.proj,rCard)"/></div><div class="fg"><label>Category</label><input value="${esc(it.cat)}" oninput="D.proj[${i}].cat=this.value;rSw('proj',D.proj,rCard)"/></div></div><div class="fg"><label>Description</label><textarea rows="3" oninput="D.proj[${i}].desc=this.value;rSw('proj',D.proj,rCard)">${esc(it.desc)}</textarea></div><div class="fg"><label>Tags (comma separated)</label><input value="${esc((it.tags || []).join(', '))}" oninput="D.proj[${i}].tags=this.value.split(',').map(s=>s.trim()).filter(Boolean);rSw('proj',D.proj,rCard)"/></div><div class="fg"><label>Demo Video — Google Drive Link <button class="btn-clr" onclick="D.proj[${i}].video='';rAll()" title="Clear video">✕ clear</button></label><input value="${esc(it.video || '')}" placeholder="https://drive.google.com/file/d/..." oninput="D.proj[${i}].video=this.value;rSw('proj',D.proj,rCard)"/></div><div class="fg"><label>Logo — Google Drive Link <button class="btn-clr" onclick="hLg('proj',${i},'');rAll()" title="Clear logo">✕ clear</button></label><input value="${esc(it.logo || '')}" placeholder="https://drive.google.com/file/d/..." oninput="hLg('proj',${i},this.value)"/></div></div>`).join('');
+      const aEL = $('achEL');
+      if (aEL) aEL.innerHTML = D.ach.map((it, i) => `<div class="ei"><button class="eidel" onclick="del('ach',${i})">×</button><div class="f2"><div class="fg"><label>Icon/Emoji</label><input value="${esc(it.icon)}" oninput="D.ach[${i}].icon=this.value;rSw('ach',D.ach,rAch)"/></div><div class="fg"><label>Year</label><input value="${esc(it.year)}" oninput="D.ach[${i}].year=this.value;rSw('ach',D.ach,rAch)"/></div></div><div class="fg"><label>Title</label><input value="${esc(it.title)}" oninput="D.ach[${i}].title=this.value;rSw('ach',D.ach,rAch)"/></div><div class="fg"><label>Description</label><textarea rows="3" oninput="D.ach[${i}].desc=this.value;rSw('ach',D.ach,rAch)">${esc(it.desc)}</textarea></div></div>`).join('');
+      const sEL = $('skillsEL');
+      if (sEL) sEL.innerHTML = D.sk.map((c, ci) => `<div class="ei"><button class="eidel" onclick="delSkCat(${ci})">×</button><div class="fg"><label>Category Name</label><input value="${esc(c.cat)}" oninput="D.sk[${ci}].cat=this.value;rSk()"/></div><div class="fg"><label>Skills (comma separated)</label><input value="${esc(c.tags.join(', '))}" oninput="D.sk[${ci}].tags=this.value.split(',').map(s=>s.trim()).filter(Boolean);rSk()"/></div></div>`).join('');
+      const cEL = $('ctEL');
+      if (cEL) cEL.innerHTML = D.ct.map((c, i) => `<div class="ei"><button class="eidel" onclick="delCt(${i})">×</button><div class="f2"><div class="fg"><label>Label</label><input value="${esc(c.lbl)}" oninput="D.ct[${i}].lbl=this.value;rCt()"/></div><div class="fg"><label>Value</label><input value="${esc(c.val)}" oninput="D.ct[${i}].val=this.value;rCt()"/></div></div><div class="fg"><label>Link URL</label><input value="${esc(c.link || '')}" placeholder="https://..." oninput="D.ct[${i}].link=this.value;rCt()"/></div></div>`).join('');
+    }
+
+    function rAll() { rSw('edu', D.edu, rCard); rSw('cert', D.cert, rCard); rSw('proj', D.proj, rCard); rSw('ach', D.ach, rAch); rSw('sem', D.sem, rCard); rSw('exp', D.exp, rCard); rSk(); rCt(); rEds(); }
+    window.addEventListener('load', () => { loadS(); rAll(); rPh(); });
+    window.addEventListener('resize', () => rAll());
+    window.addEventListener('beforeunload', () => { if (EM) save(); });
+  </script>
+</body>
+
+</html>

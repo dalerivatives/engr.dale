@@ -23,8 +23,9 @@
   --fh:'Syne',sans-serif;--fb:'Inter',sans-serif;--fc:'JetBrains Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;scroll-padding-top:62px;max-width:100vw;overflow-x:hidden;}
-body{background:#03040a;color:var(--txt);font-family:var(--fb);font-weight:300;overflow-x:hidden;cursor:auto;max-width:100vw;}
+html{scroll-behavior:smooth;scroll-padding-top:62px;overflow-x:hidden;width:100%;}
+body{background:#03040a;color:var(--txt);font-family:var(--fb);font-weight:300;overflow-x:hidden;cursor:auto;width:100%;max-width:100%;}
+img,video,iframe,canvas,svg{max-width:100%;}
 
 /* canvas bg */
 #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;}
@@ -158,8 +159,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;
 .h-badge::before{content:'◆';font-size:8px;}
 .h-name{font-family:var(--fh);font-weight:800;line-height:.93;letter-spacing:-.03em;
   opacity:0;animation:up .7s ease .22s forwards;}
-.nl1{display:block;font-size:clamp(18px,4.8vw,78px);color:var(--txt);white-space:nowrap;overflow:visible;}
-.nl2{display:block;font-size:clamp(18px,4.8vw,78px);white-space:nowrap;overflow:visible;
+.nl1{display:block;font-size:clamp(18px,4.8vw,78px);color:var(--txt);white-space:normal;overflow:visible;word-break:break-word;}
+.nl2{display:block;font-size:clamp(18px,4.8vw,78px);white-space:normal;overflow:visible;word-break:break-word;
   background:var(--grad-txt);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .nl3{display:block;font-size:clamp(11px,1.4vw,20px);font-weight:400;color:var(--txt2);
   font-family:var(--fc);letter-spacing:.08em;margin-top:12px;}
@@ -295,7 +296,7 @@ body.em .gadd{display:inline-flex;}
 @keyframes rgbSlide{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 @keyframes rgbSlideRev{0%{background-position:200% 50%}100%{background-position:0% 50%}}
 
-.sec{padding:96px 56px;position:relative;z-index:2;background:transparent;overflow:hidden;}
+.sec{padding:96px 56px;position:relative;z-index:2;background:transparent;overflow:visible;}
 /* top LED line — uses ::before, ::after is reserved for data-n watermark */
 .sec::before{
   content:'';position:absolute;top:0;left:0;right:0;height:1px;z-index:3;
@@ -342,14 +343,14 @@ body.em .gadd{display:inline-flex;}
 body.em .btn-sec-ed{display:inline-flex;align-items:center;gap:5px;}
 
 /* swiper */
-.sw-wrap{overflow:visible;touch-action:pan-y;width:100%;}
+.sw-wrap{overflow:hidden;touch-action:pan-y;width:100%;}
 .sw-track{display:flex;transition:transform .52s cubic-bezier(.22,1,.36,1);width:100%;}
 .sw-dots{display:flex;gap:6px;margin-top:22px;}
 .swdot{height:3px;width:18px;background:var(--rim2);border-radius:2px;cursor:pointer;transition:all .3s;}
 .swdot.on{width:36px;background:var(--grad-txt);}
 
 /* cards */
-.card{padding:0 8px;}
+.card{padding:0 6px;min-width:0;box-sizing:border-box;}
 .ci{
   background:rgba(10,12,24,0.10);
   backdrop-filter:blur(18px) saturate(1.4);
@@ -809,6 +810,20 @@ nav.scrolled ~ #scroll-prog, nav.scrolled + * #scroll-prog{top:50px;}
 }
 #btt.vis{opacity:1;transform:translateY(0);pointer-events:all;}
 #btt:hover{border-color:rgba(108,99,255,0.7);box-shadow:0 6px 28px rgba(108,99,255,0.35),inset 0 1px 0 rgba(255,255,255,0.1);}
+#soundBtn{
+  position:fixed;bottom:80px;right:28px;z-index:490;
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(10,12,24,0.6);backdrop-filter:blur(16px);
+  border:1px solid rgba(108,99,255,0.35);
+  color:var(--txt2);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(108,99,255,0.15),inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:border-color .2s,color .2s,box-shadow .2s;
+}
+@media(max-width:480px){
+  #btt{bottom:20px;right:16px;width:38px;height:38px;}
+  #soundBtn{bottom:68px;right:16px;width:38px;height:38px;}
+}
 
 /* ── 5. TYPED CURSOR ── */
 .typed-cursor{
@@ -947,8 +962,7 @@ nav.scrolled ~ #scroll-prog, nav.scrolled + * #scroll-prog{top:50px;}
   .ft-trevelade{font-size:14px;}
   .ft-copy{font-size:8px;}
 
-  /* BACK TO TOP */
-  #btt{bottom:16px;right:16px;width:38px;height:38px;}
+  /* BACK TO TOP — handled in base CSS */
 }
 
 /* ── VERY SMALL (≤360px) ── */
@@ -1097,16 +1111,6 @@ nav.scrolled ~ #scroll-prog, nav.scrolled + * #scroll-prog{top:50px;}
 /* ══════════════════════════════════════════
    AMBIENT SOUND TOGGLE
 ══════════════════════════════════════════ */
-#soundBtn{
-  position:fixed;bottom:82px;right:28px;z-index:490;
-  width:42px;height:42px;border-radius:50%;
-  background:rgba(10,12,24,0.6);backdrop-filter:blur(16px);
-  border:1px solid rgba(108,99,255,0.35);
-  color:var(--txt2);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(108,99,255,0.15),inset 0 1px 0 rgba(255,255,255,0.06);
-  transition:border-color .2s,color .2s,box-shadow .2s;
-}
 #soundBtn:hover{border-color:rgba(108,99,255,.6);color:var(--a1);}
 #soundBtn.on{
   border-color:rgba(0,212,255,0.6);color:var(--a2);

@@ -1274,15 +1274,26 @@ footer::before{
 
     <!-- URL panel -->
     <div id="phPanelUrl" style="display:none">
-      <label class="m-lbl">Paste your Facebook photo link or any image URL</label>
-      <input class="m-inp" type="url" id="phUrl" placeholder="https://www.facebook.com/photo?fbid=... or https://i.imgur.com/..." onkeydown="if(event.key==='Enter')confirmPh()" oninput="previewPhUrl(this.value)"/>
-      <div id="phUrlPreview" style="display:none;margin-top:12px;border-radius:8px;overflow:hidden;border:1px solid var(--rim2);background:var(--ink2);min-height:80px;display:none;align-items:center;justify-content:center;">
-        <iframe id="phFbFrame" style="width:100%;height:220px;border:none;display:none;" allowfullscreen scrolling="no"></iframe>
-        <img id="phUrlImg" style="width:100%;max-height:220px;object-fit:cover;display:none;" />
-        <div id="phUrlLoading" style="font-family:var(--fc);font-size:11px;color:var(--txt3);padding:20px;display:none;">Previewing...</div>
+      <div style="background:rgba(6,214,160,0.07);border:1px solid rgba(6,214,160,0.22);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--fc);font-size:10px;color:var(--a5);letter-spacing:.08em;margin-bottom:6px;">✓ HOW TO GET A WORKING FACEBOOK IMAGE URL</div>
+        <div style="font-family:var(--fb);font-size:11px;color:var(--txt2);line-height:1.9;">
+          1. Open your Facebook photo<br/>
+          2. Right-click the photo → <b style="color:var(--txt)">Open image in new tab</b><br/>
+          3. Copy the URL from the address bar — it should start with <b style="color:var(--a2)">https://scontent</b><br/>
+          4. Paste it below ✓
+        </div>
       </div>
-      <div id="phUrlHint" style="font-family:var(--fc);font-size:10px;color:var(--a5);margin-top:10px;line-height:1.8;display:none;">
-        ✓ Facebook photo detected — will embed using Facebook's official player (works on any device without login)
+      <div style="background:rgba(255,209,102,0.07);border:1px solid rgba(255,209,102,0.2);border-radius:var(--r);padding:10px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--fc);font-size:10px;color:var(--a4);letter-spacing:.08em;margin-bottom:4px;">✓ HOW TO GET A WORKING YOUTUBE THUMBNAIL URL</div>
+        <div style="font-family:var(--fb);font-size:11px;color:var(--txt2);line-height:1.9;">
+          Paste any YouTube video link — it auto-embeds.<br/>
+          e.g. <b style="color:var(--a2)">https://youtu.be/xxxxx</b> or <b style="color:var(--a2)">https://youtube.com/watch?v=xxxxx</b>
+        </div>
+      </div>
+      <label class="m-lbl">Paste image URL (scontent FB link or direct image)</label>
+      <input class="m-inp" type="url" id="phUrl" placeholder="https://scontent-xxx.fbcdn.net/v/..." onkeydown="if(event.key==='Enter')confirmPh()" oninput="previewPhUrl(this.value)"/>
+      <div id="phUrlPreview" style="display:none;margin-top:10px;border-radius:8px;overflow:hidden;border:1px solid var(--rim2);">
+        <img id="phUrlImg" style="width:100%;max-height:180px;object-fit:cover;display:block;" />
       </div>
     </div>
 
@@ -1786,60 +1797,29 @@ function clearPhPreview(){
 }
 function fbImg(url){return url.trim();}
 
-function isFbUrl(url){ return /facebook\.com\/(photo|permalink|media|posts)/i.test(url) || /fb\.com\//i.test(url) || /scontent.*fbcdn\.net/i.test(url); }
-
-function fbEmbedSrc(url){
-  // Facebook's official embed endpoint — works publicly on any device
-  return 'https://www.facebook.com/plugins/post.php?href=' + encodeURIComponent(url) + '&show_text=false&width=340&height=280&appId';
-}
+function isFbUrl(url){ return /facebook\.com|fb\.com|fbcdn\.net/i.test(url); }
+function fbEmbedSrc(url){ return url; }
 
 function previewPhUrl(val){
   val = val.trim();
   const preview = $('phUrlPreview');
-  const hint    = $('phUrlHint');
-  const frame   = $('phFbFrame');
-  const img     = $('phUrlImg');
-  const loading = $('phUrlLoading');
-  if(!val){ preview.style.display='none'; hint.style.display='none'; return; }
-
-  preview.style.display='flex';
-  frame.style.display='none';
-  img.style.display='none';
-  loading.style.display='block';
-
-  if(isFbUrl(val)){
-    hint.style.display='block';
-    hint.style.color='var(--a5)';
-    hint.textContent='✓ Facebook photo detected — will embed using Facebook\'s official embed (visible on any device without login)';
-    frame.src = fbEmbedSrc(val);
-    frame.style.display='block';
-    loading.style.display='none';
-  } else {
-    hint.style.display='none';
-    img.src = val;
-    img.onload = function(){ img.style.display='block'; loading.style.display='none'; };
-    img.onerror = function(){ loading.textContent='⚠ Could not preview — URL may not be a direct image'; };
-  }
+  const img = $('phUrlImg');
+  if(!preview || !img) return;
+  if(!val || isFbUrl(val)){ preview.style.display='none'; return; }
+  img.src = val;
+  img.onload = function(){ preview.style.display='block'; };
+  img.onerror = function(){ preview.style.display='none'; };
 }
 
 function confirmPh(){
-  // Upload tab
   if($('phPanelUp').style.display!=='none'){
     if(!_phBase64){$('phErr').textContent='// Please select an image file';$('phErr').style.display='block';return;}
     PH.push(_phBase64);PI=PH.length-1;rPh();$('phM').classList.remove('on');clearPhPreview();
     return;
   }
-  // URL tab
   const raw=($('phUrl')||{}).value&&$('phUrl').value.trim();
-  if(!raw){$('phErr').textContent='// Please enter a valid image URL';$('phErr').style.display='block';return;}
-
-  // Store FB URLs as special embed object
-  if(isFbUrl(raw)){
-    PH.push({type:'fb', url:raw});
-  } else {
-    PH.push(raw);
-  }
-  PI=PH.length-1;rPh();$('phM').classList.remove('on');
+  if(!raw){$('phErr').textContent='// Please enter an image URL';$('phErr').style.display='block';return;}
+  PH.push(raw);PI=PH.length-1;rPh();$('phM').classList.remove('on');
 }
 // Drag and drop support
 window.addEventListener('load',function(){
@@ -2509,9 +2489,14 @@ window.addEventListener('load',()=>{loadS();rAll();rPh();});
   // ── Video: simple iframe, muted autoplay, custom unmute overlay ──
   function euYT(u){
     if(!u||!u.trim())return'';
-    const yt=u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-    if(yt)return yt[1];
-    const em=u.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
+    // youtu.be/ID?feature=... — grab just the 11-char ID
+    const short=u.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+    if(short)return short[1];
+    // youtube.com/watch?v=ID&...
+    const watch=u.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+    if(watch)return watch[1];
+    // already embed URL
+    const em=u.match(/embed\/([a-zA-Z0-9_-]{11})/);
     if(em)return em[1];
     return'';
   }
@@ -2519,9 +2504,10 @@ window.addEventListener('load',()=>{loadS();rAll();rPh();});
   function hLg(k,i,url){D[k][i].logo=url.trim();rAll();}
 
   function ytSrc(id,muted){
-    return`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=${muted?1:0}&controls=0&rel=0&modestbranding=1&loop=1&playlist=${id}&iv_load_policy=3&fs=0&showinfo=0&enablejsapi=0`;
+    // controls=1 lets viewer scrub; starts muted so autoplay works, speaker btn unmutes
+    return`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=${muted?1:0}&controls=1&rel=0&modestbranding=1&loop=1&playlist=${id}&iv_load_policy=3`;
   }
-  // muted state per video: key = k+'-'+i, value = true(muted)/false(unmuted)
+    // muted state per video: key = k+'-'+i, value = true(muted)/false(unmuted)
   const MuteState={};
   const SVG_MUTED=`<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor" stroke="none" opacity=".7"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
   const SVG_SOUND=`<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor" stroke="none" opacity=".7"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;

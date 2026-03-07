@@ -293,7 +293,13 @@ body.em .clogo:hover{border-color:var(--a1);background:var(--g1);}
   color:transparent;-webkit-text-stroke:1px rgba(108,99,255,.07);pointer-events:none;line-height:1;letter-spacing:-.04em;}
 .cvid{margin-top:16px;aspect-ratio:16/9;background:var(--ink2);border:1px solid var(--rim);border-radius:var(--r);overflow:hidden;}
 .cvid-wrap{position:relative;width:100%;height:100%;}
-.cvid-wrap iframe{position:absolute;top:-40px;left:0;width:100%;height:calc(100% + 80px);border:none;display:block;background:#000;}
+.cvid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;background:#000;opacity:0;transition:opacity .5s ease;}
+.cvid-wrap iframe.ready{opacity:1;}
+.cvid-loader{position:absolute;inset:0;z-index:4;background:var(--ink2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:opacity .5s ease;}
+.cvid-loader.gone{opacity:0;pointer-events:none;}
+.cvid-loader-ring{width:32px;height:32px;border:2px solid var(--rim2);border-top-color:var(--a1);border-radius:50%;animation:spin .8s linear infinite;}
+.cvid-loader-tx{font-family:var(--fc);font-size:10px;color:var(--txt3);letter-spacing:.08em;}
+@keyframes spin{to{transform:rotate(360deg)}}
 .cvid-block{position:absolute;inset:0;z-index:3;cursor:default;pointer-events:all;}
 body.em .cvid-block{pointer-events:none;}
 .cvid-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -1011,15 +1017,15 @@ function hLg(k,i,url){D[k][i].logo=url.trim();rAll();}
 function euYT(u){
   if(!u||!u.trim())return'';
   const yt=u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-  if(yt){const id=yt[1];return`https://www.youtube.com/embed/${id}?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&loop=1&playlist=${id}&iv_load_policy=3&fs=0`;}
+  if(yt)return yt[1];
   const em=u.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
-  if(em){const id=em[1];return`https://www.youtube.com/embed/${id}?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&loop=1&playlist=${id}&iv_load_policy=3&fs=0`;}
+  if(em)return em[1];
   return'';
 }
 const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
 function rCard(it,i,k){const vis=SS[k]?SS[k].vis:3;const vid=eu(it.video||'');const hv='video'in it;
-  return`<div class="card" style="flex:0 0 calc(100%/${vis})"><div class="ci"><div class="c-hd"><div class="clogo" onclick="ifEM(()=>{const u=prompt('Paste Facebook or direct image URL for logo:');if(u&&u.trim())hLg('${k}',${i},u);})">${it.logo?`<img src="${it.logo}" onerror="this.style.opacity='.3'" />`:`<span class="clph">◈</span>`}</div><div class="cmeta"><div class="cprd">${esc(it.period||it.year||it.cat||'')}</div><div class="ctit">${esc(it.title)}</div><div class="csub">${esc(it.institution||it.cat||it.org||'')}</div></div></div><div class="cdesc">${esc(it.desc)}</div>${(it.tags||[]).length?`<div class="ctags">${it.tags.map(t=>`<span class="ctag">${esc(t)}</span>`).join('')}</div>`:''}${hv?`<div class="cvid">${vid?`<div class="cvid-wrap"><iframe src="${vid}" frameborder="0" allow="autoplay; encrypted-media; fullscreen"></iframe><div class="cvid-block"></div><button class="cvid-del" onclick="ifEM(()=>{D['${k}'][${i}].video='';rAll();})"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>remove</button></div>`:`<div class="cvid-ph"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>paste YouTube link in Edit mode</span></div>`}</div>`:''}<div class="cnum">${String(i+1).padStart(2,'0')}</div></div></div>`;}
+  return`<div class="card" style="flex:0 0 calc(100%/${vis})"><div class="ci"><div class="c-hd"><div class="clogo" onclick="ifEM(()=>{const u=prompt('Paste Facebook or direct image URL for logo:');if(u&&u.trim())hLg('${k}',${i},u);})">${it.logo?`<img src="${it.logo}" onerror="this.style.opacity='.3'" />`:`<span class="clph">◈</span>`}</div><div class="cmeta"><div class="cprd">${esc(it.period||it.year||it.cat||'')}</div><div class="ctit">${esc(it.title)}</div><div class="csub">${esc(it.institution||it.cat||it.org||'')}</div></div></div><div class="cdesc">${esc(it.desc)}</div>${(it.tags||[]).length?`<div class="ctags">${it.tags.map(t=>`<span class="ctag">${esc(t)}</span>`).join('')}</div>`:''}${hv?`<div class="cvid">${vid?`<div class="cvid-wrap" id="cvw-${k}-${i}"><div class="cvid-loader" id="cvl-${k}-${i}"><div class="cvid-loader-ring"></div><div class="cvid-loader-tx">loading...</div></div><div id="cvp-${k}-${i}"></div><div class="cvid-block"></div><button class="cvid-del" onclick="ifEM(()=>{D['${k}'][${i}].video='';rAll();})"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>remove</button></div>`:`<div class="cvid-ph"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>paste YouTube link in Edit</span></div>`}</div>`:''}<div class="cnum">${String(i+1).padStart(2,'0')}</div></div></div>`;}
 
 function rAch(it,i){const vis=SS.ach?SS.ach.vis:3;return`<div class="card" style="flex:0 0 calc(100%/${vis})"><div class="ai"><div class="ai-ic">${it.icon||'⭐'}</div><div style="flex:1"><div class="ai-yr">${esc(it.year)}</div><div class="ai-tit">${esc(it.title)}</div><div class="ai-desc">${esc(it.desc)}</div></div><div class="ai-n">${String(i+1).padStart(2,'0')}</div></div></div>`;}
 
@@ -1050,10 +1056,49 @@ function rEds(){
   if(cEL)cEL.innerHTML=D.ct.map((c,i)=>`<div class="ei"><button class="eidel" onclick="delCt(${i})">×</button><div class="f2"><div class="fg"><label>Label</label><input value="${esc(c.lbl)}" oninput="D.ct[${i}].lbl=this.value;rCt()"/></div><div class="fg"><label>Value</label><input value="${esc(c.val)}" oninput="D.ct[${i}].val=this.value;rCt()"/></div></div><div class="fg"><label>Link URL</label><input value="${esc(c.link||'')}" placeholder="https://..." oninput="D.ct[${i}].link=this.value;rCt()"/></div></div>`).join('');
 }
 
-function rAll(){rSw('edu',D.edu,rCard);rSw('cert',D.cert,rCard);rSw('proj',D.proj,rCard);rSw('ach',D.ach,rAch);rSw('sem',D.sem,rCard);rSw('exp',D.exp,rCard);rSk();rCt();rEds();}
+function rAll(){rSw('edu',D.edu,rCard);rSw('cert',D.cert,rCard);rSw('proj',D.proj,rCard);rSw('ach',D.ach,rAch);rSw('sem',D.sem,rCard);rSw('exp',D.exp,rCard);rSk();rCt();rEds();setTimeout(rYT,80);}
 window.addEventListener('load',()=>{loadS();rAll();rPh();});
-window.addEventListener('resize',()=>rAll());
-window.addEventListener('beforeunload',()=>{if(EM)save();});
-</script>
+  window.addEventListener('resize',()=>rAll());
+  window.addEventListener('beforeunload',()=>{if(EM)save();});
+
+  window.YTPlayers={};
+  window.onYouTubeIframeAPIReady=function(){initYTPlayers();}
+  function initYTPlayers(){
+    document.querySelectorAll('[id^="cvp-"]').forEach(el=>{
+      const parts=el.id.split('-');
+      const k=parts[1],i=parseInt(parts[2]);
+      const vid=eu(D[k]&&D[k][i]?D[k][i].video||'':'');
+      if(!vid||window.YTPlayers[el.id])return;
+      window.YTPlayers[el.id]=new YT.Player(el.id,{
+        width:'100%',height:'100%',videoId:vid,
+        playerVars:{
+          autoplay:1,mute:0,controls:0,
+          rel:0,modestbranding:1,
+          loop:1,playlist:vid,
+          iv_load_policy:3,fs:0,showinfo:0
+        },
+        events:{
+          onReady:function(e){
+            setTimeout(()=>{
+              const wrap=document.getElementById('cvw-'+k+'-'+i);
+              const loader=document.getElementById('cvl-'+k+'-'+i);
+              const iframe=wrap&&wrap.querySelector('iframe');
+              if(iframe)iframe.classList.add('ready');
+              if(loader){loader.classList.add('gone');setTimeout(()=>loader.remove(),520);}
+              e.target.playVideo();
+            },400);
+          },
+          onStateChange:function(e){if(e.data===0)e.target.seekTo(0);}
+        }
+      });
+    });
+  }
+  function rYT(){
+    Object.keys(window.YTPlayers).forEach(k=>{try{window.YTPlayers[k].destroy();}catch(e){}});
+    window.YTPlayers={};
+    if(window.YT&&window.YT.Player)initYTPlayers();
+  }
+  </script>
+  <script src="https://www.youtube.com/iframe_api" async></script>
 </body>
 </html>

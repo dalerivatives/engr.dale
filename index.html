@@ -140,6 +140,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;
 .m-x{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--txt3);
   font-size:22px;cursor:none;transition:color .2s;line-height:1;}
 .m-x:hover{color:var(--txt);}
+/* Photo modal tabs */
+.ph-tabs{display:flex;gap:6px;margin-bottom:20px;}
+.ph-tab{flex:1;font-family:var(--fc);font-size:11px;letter-spacing:.06em;padding:8px;border-radius:var(--r);
+  background:var(--ink2);border:1px solid var(--rim2);color:var(--txt3);cursor:pointer;transition:all .2s;}
+.ph-tab.on{background:rgba(108,99,255,0.15);border-color:var(--a1);color:var(--a1);}
+.ph-drop{border:2px dashed var(--rim2);border-radius:var(--r2);padding:28px 20px;text-align:center;
+  cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.ph-drop:hover,.ph-drop.over{border-color:var(--a1);background:rgba(108,99,255,0.07);}
+.ph-drop-txt{font-family:var(--fc);font-size:13px;color:var(--txt2);}
+.ph-drop-sub{font-family:var(--fc);font-size:10px;color:var(--txt3);letter-spacing:.05em;}
+.ph-preview{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px;
+  background:var(--ink2);border-radius:var(--r);border:1px solid var(--rim2);}
+.ph-clear{font-family:var(--fc);font-size:10px;color:var(--a3);background:none;border:none;cursor:pointer;white-space:nowrap;}
 
 /* ═══ HERO ═══ */
 .hero{min-height:100vh;padding-top:60px;display:grid;grid-template-columns:1fr 420px;align-items:start;position:relative;z-index:1;background:transparent;}
@@ -1238,10 +1251,42 @@ footer::before{
     <button class="m-x" onclick="$('phM').classList.remove('on')">&#215;</button>
     <div class="m-tag">photo.add()</div>
     <h2 class="m-title">Add Photo</h2>
-    <p class="m-sub">Paste a Facebook photo link</p>
-    <label class="m-lbl">Facebook image URL</label>
-    <input class="m-inp" type="url" id="phUrl" placeholder="https://www.facebook.com/photo?fbid=..." onkeydown="if(event.key==='Enter')confirmPh()"/>
-    <div class="m-err" id="phErr">// Please enter a valid Facebook photo URL</div>
+
+    <!-- Tab switcher -->
+    <div class="ph-tabs">
+      <button class="ph-tab on" id="phTabUp" onclick="switchPhTab('upload')">📁 Upload File</button>
+      <button class="ph-tab" id="phTabUrl" onclick="switchPhTab('url')">🔗 Paste URL</button>
+    </div>
+
+    <!-- Upload panel -->
+    <div id="phPanelUp">
+      <div class="ph-drop" id="phDrop" onclick="$('phFile').click()">
+        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <div class="ph-drop-txt">Click or drag &amp; drop an image</div>
+        <div class="ph-drop-sub">JPG, PNG, WEBP · Max 4MB · Embedded directly into the HTML</div>
+      </div>
+      <input type="file" id="phFile" accept="image/*" style="display:none" onchange="handlePhFile(this)"/>
+      <div class="ph-preview" id="phPreview" style="display:none">
+        <img id="phPreviewImg" style="max-width:100%;max-height:160px;border-radius:8px;object-fit:cover;"/>
+        <button class="ph-clear" onclick="clearPhPreview()">✕ Remove</button>
+      </div>
+    </div>
+
+    <!-- URL panel -->
+    <div id="phPanelUrl" style="display:none">
+      <label class="m-lbl">Paste your Facebook photo link or any image URL</label>
+      <input class="m-inp" type="url" id="phUrl" placeholder="https://www.facebook.com/photo?fbid=... or https://i.imgur.com/..." onkeydown="if(event.key==='Enter')confirmPh()" oninput="previewPhUrl(this.value)"/>
+      <div id="phUrlPreview" style="display:none;margin-top:12px;border-radius:8px;overflow:hidden;border:1px solid var(--rim2);background:var(--ink2);min-height:80px;display:none;align-items:center;justify-content:center;">
+        <iframe id="phFbFrame" style="width:100%;height:220px;border:none;display:none;" allowfullscreen scrolling="no"></iframe>
+        <img id="phUrlImg" style="width:100%;max-height:220px;object-fit:cover;display:none;" />
+        <div id="phUrlLoading" style="font-family:var(--fc);font-size:11px;color:var(--txt3);padding:20px;display:none;">Previewing...</div>
+      </div>
+      <div id="phUrlHint" style="font-family:var(--fc);font-size:10px;color:var(--a5);margin-top:10px;line-height:1.8;display:none;">
+        ✓ Facebook photo detected — will embed using Facebook's official player (works on any device without login)
+      </div>
+    </div>
+
+    <div class="m-err" id="phErr">// Please select or paste a valid image</div>
     <button class="m-btn" onclick="confirmPh()">Add Photo →</button>
   </div>
 </div>
@@ -1694,7 +1739,14 @@ function rPh(){
     dots.innerHTML='';idx.textContent='0/0';if(gf)gf.textContent='no photos';return;
   }
   if(PI>=PH.length)PI=PH.length-1;
-  track.innerHTML=PH.map((src,i)=>`<div class="gslide"><img src="${src}" alt="Photo ${i+1}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="gph" style="display:none"><div class="gph-ic" style="font-size:22px">⚠</div><div class="gph-tx" style="font-size:11px">Image failed to load<br/><span style="font-size:9px;opacity:.6">Make sure sharing is set to<br/>"Anyone with the link"</span></div></div><div class="gfade"></div><div class="gcaption"><span class="gcounter">${String(i+1).padStart(2,'0')}</span><span class="gtag">profile</span></div><div class="gov"><button class="gov-add" onclick="ifEM(openPhModal)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>add photo</button><button class="gov-del" onclick="ifEM(()=>delPh(${i}))"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>delete</button></div></div>`).join('');
+  track.innerHTML=PH.map((src,i)=>{
+    const isFb = src && typeof src==='object' && src.type==='fb';
+    const isB64 = typeof src==='string' && src.startsWith('data:');
+    const media = isFb
+      ? `<iframe src="${fbEmbedSrc(src.url)}" style="width:100%;height:100%;border:none;" scrolling="no" allowfullscreen allow="encrypted-media"></iframe>`
+      : `<img src="${typeof src==='string'?src:src.url}" alt="Photo ${i+1}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="gph" style="display:none"><div class="gph-ic" style="font-size:22px">⚠</div><div class="gph-tx" style="font-size:11px">Image failed to load</div></div>`;
+    return `<div class="gslide">${media}<div class="gfade"></div><div class="gcaption"><span class="gcounter">${String(i+1).padStart(2,'0')}</span><span class="gtag">profile</span></div><div class="gov"><button class="gov-add" onclick="ifEM(openPhModal)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>add photo</button><button class="gov-del" onclick="ifEM(()=>delPh(${i}))"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>delete</button></div></div>`;
+  }).join('');
   track.style.transform=`translateX(-${PI*100}%)`;
   dots.innerHTML=PH.map((_,i)=>`<div class="gdot${i===PI?' on':''}" onclick="gp(${i})"></div>`).join('');
   idx.textContent=`${PI+1}/${PH.length}`;
@@ -1704,16 +1756,107 @@ function rPh(){
 function sph(d){if(!PH.length)return;PI=(PI+d+PH.length)%PH.length;$('gtrack').style.transform=`translateX(-${PI*100}%)`;document.querySelectorAll('.gdot').forEach((el,i)=>el.classList.toggle('on',i===PI));$('gIdx').textContent=`${PI+1}/${PH.length}`;if(typeof gaProg!=='undefined'){gaProg=0;}}
 function gp(i){PI=i;sph(0);}
 function delPh(i){PH.splice(i,1);if(PI>=PH.length)PI=Math.max(0,PH.length-1);rPh();}
-function openPhModal(){if(!EM)return;$('phUrl').value='';$('phErr').style.display='none';$('phM').classList.add('on');setTimeout(()=>$('phUrl').focus(),80);}
-function fbImg(url){
-  // Facebook photo URLs - use as-is, they work as direct src when public
-  return url.trim();
+function openPhModal(){if(!EM)return;$('phUrl')&&($('phUrl').value='');$('phErr').style.display='none';clearPhPreview();switchPhTab('upload');$('phM').classList.add('on');}
+function switchPhTab(tab){
+  var isUp=tab==='upload';
+  $('phTabUp').classList.toggle('on',isUp);
+  $('phTabUrl').classList.toggle('on',!isUp);
+  $('phPanelUp').style.display=isUp?'':'none';
+  $('phPanelUrl').style.display=isUp?'none':'';
 }
+var _phBase64=null;
+function handlePhFile(inp){
+  var file=inp.files[0];if(!file)return;
+  if(file.size>4*1024*1024){$('phErr').textContent='// Image too large (max 4MB)';$('phErr').style.display='block';return;}
+  var r=new FileReader();
+  r.onload=function(e){
+    _phBase64=e.target.result;
+    $('phPreviewImg').src=_phBase64;
+    $('phPreview').style.display='flex';
+    $('phDrop').style.display='none';
+    $('phErr').style.display='none';
+  };
+  r.readAsDataURL(file);
+}
+function clearPhPreview(){
+  _phBase64=null;
+  if($('phFile'))$('phFile').value='';
+  if($('phPreview'))$('phPreview').style.display='none';
+  if($('phDrop'))$('phDrop').style.display='flex';
+}
+function fbImg(url){return url.trim();}
+
+function isFbUrl(url){ return /facebook\.com\/(photo|permalink|media|posts)/i.test(url) || /fb\.com\//i.test(url) || /scontent.*fbcdn\.net/i.test(url); }
+
+function fbEmbedSrc(url){
+  // Facebook's official embed endpoint — works publicly on any device
+  return 'https://www.facebook.com/plugins/post.php?href=' + encodeURIComponent(url) + '&show_text=false&width=340&height=280&appId';
+}
+
+function previewPhUrl(val){
+  val = val.trim();
+  const preview = $('phUrlPreview');
+  const hint    = $('phUrlHint');
+  const frame   = $('phFbFrame');
+  const img     = $('phUrlImg');
+  const loading = $('phUrlLoading');
+  if(!val){ preview.style.display='none'; hint.style.display='none'; return; }
+
+  preview.style.display='flex';
+  frame.style.display='none';
+  img.style.display='none';
+  loading.style.display='block';
+
+  if(isFbUrl(val)){
+    hint.style.display='block';
+    hint.style.color='var(--a5)';
+    hint.textContent='✓ Facebook photo detected — will embed using Facebook\'s official embed (visible on any device without login)';
+    frame.src = fbEmbedSrc(val);
+    frame.style.display='block';
+    loading.style.display='none';
+  } else {
+    hint.style.display='none';
+    img.src = val;
+    img.onload = function(){ img.style.display='block'; loading.style.display='none'; };
+    img.onerror = function(){ loading.textContent='⚠ Could not preview — URL may not be a direct image'; };
+  }
+}
+
 function confirmPh(){
-  const raw=$('phUrl').value.trim();
-  if(!raw){$('phErr').style.display='block';return;}
-  PH.push(raw);PI=PH.length-1;rPh();$('phM').classList.remove('on');
+  // Upload tab
+  if($('phPanelUp').style.display!=='none'){
+    if(!_phBase64){$('phErr').textContent='// Please select an image file';$('phErr').style.display='block';return;}
+    PH.push(_phBase64);PI=PH.length-1;rPh();$('phM').classList.remove('on');clearPhPreview();
+    return;
+  }
+  // URL tab
+  const raw=($('phUrl')||{}).value&&$('phUrl').value.trim();
+  if(!raw){$('phErr').textContent='// Please enter a valid image URL';$('phErr').style.display='block';return;}
+
+  // Store FB URLs as special embed object
+  if(isFbUrl(raw)){
+    PH.push({type:'fb', url:raw});
+  } else {
+    PH.push(raw);
+  }
+  PI=PH.length-1;rPh();$('phM').classList.remove('on');
 }
+// Drag and drop support
+window.addEventListener('load',function(){
+  var drop=$('phDrop');if(!drop)return;
+  drop.addEventListener('dragover',function(e){e.preventDefault();drop.classList.add('over');});
+  drop.addEventListener('dragleave',function(){drop.classList.remove('over');});
+  drop.addEventListener('drop',function(e){
+    e.preventDefault();drop.classList.remove('over');
+    var file=e.dataTransfer.files[0];
+    if(file&&file.type.startsWith('image/')){
+      var inp=$('phFile');
+      // Simulate file input
+      var dt=new DataTransfer();dt.items.add(file);inp.files=dt.files;
+      handlePhFile(inp);
+    }
+  });
+});
 (function(){let sx=0,drag=false;window.addEventListener('load',()=>{const w=$('gsw');if(!w)return;w.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;drag=true;},{passive:true});w.addEventListener('touchend',e=>{if(!drag)return;const dx=sx-e.changedTouches[0].clientX;if(Math.abs(dx)>40)sph(dx>0?1:-1);drag=false;});w.addEventListener('mousedown',e=>{sx=e.clientX;drag=true;e.preventDefault();});window.addEventListener('mouseup',e=>{if(!drag)return;const dx=sx-e.clientX;if(Math.abs(dx)>50)sph(dx>0?1:-1);drag=false;});});})();
 
 const D={
@@ -2027,7 +2170,13 @@ function rEds(){
   if(cEL)cEL.innerHTML=D.ct.map((c,i)=>`<div class="ei"><button class="eidel" onclick="delCt(${i})">×</button><div class="f2"><div class="fg"><label>Label</label><input value="${esc(c.lbl)}" oninput="D.ct[${i}].lbl=this.value;rCt()"/></div><div class="fg"><label>Value</label><input value="${esc(c.val)}" oninput="D.ct[${i}].val=this.value;rCt()"/></div></div><div class="fg"><label>Link URL</label><input value="${esc(c.link||'')}" placeholder="https://..." oninput="D.ct[${i}].link=this.value;rCt()"/></div></div>`).join('');
 }
 
-function rAll(){rSw('edu',D.edu,rCard);rSw('cert',D.cert,rCard);rSw('proj',D.proj,rCard);rSw('ach',D.ach,rAch);rSw('sem',D.sem,rCard);rSw('exp',D.exp,rCard);rSk();rCt();rEds();setTimeout(bindTilt,100);}
+function syncStats(){
+  const sP=$('sP'), sA=$('sA');
+  if(sP){ sP.setAttribute('data-target', D.proj.length); }
+  if(sA){ sA.setAttribute('data-target', D.ach.length); }
+  // sL and sY stay manual
+}
+function rAll(){rSw('edu',D.edu,rCard);rSw('cert',D.cert,rCard);rSw('proj',D.proj,rCard);rSw('ach',D.ach,rAch);rSw('sem',D.sem,rCard);rSw('exp',D.exp,rCard);rSk();rCt();rEds();syncStats();setTimeout(bindTilt,100);}
 function bindTilt(){
   document.querySelectorAll('.ci,.ai').forEach(card=>{
     card.onmousemove=e=>{
@@ -2706,12 +2855,12 @@ document.addEventListener('click', function(e){
 (function(){
   function rollCounter(el, target, delay){
     if(!el) return;
-    // Capture target from DOM if not passed, before loop resets it
-    if(!target || isNaN(target)) target = parseInt(el.textContent) || 0;
-    if(!target) return;
     var st = el.closest('.st');
 
     function runOnce(onDone){
+      // Always re-read target fresh so new data is reflected
+      var currentTarget = parseInt(el.getAttribute('data-target')||el.textContent)||0;
+      if(!currentTarget){ if(onDone) onDone(); return; }
       if(st) st.classList.add('counting');
       var current = 0;
       el.textContent = '0';
@@ -2719,10 +2868,10 @@ document.addEventListener('click', function(e){
       function tick(){
         current++;
         el.textContent = current;
-        if(current < target){
+        if(current < currentTarget){
           setTimeout(tick, 1000);
         } else {
-          el.textContent = target;
+          el.textContent = currentTarget;
           if(st) st.classList.remove('counting');
           if(onDone) onDone();
         }
@@ -2731,6 +2880,9 @@ document.addEventListener('click', function(e){
     }
 
     function loop(){
+      // Snapshot current value as data-target before resetting DOM
+      var live = parseInt(el.textContent)||0;
+      if(live > 0) el.setAttribute('data-target', live);
       el.textContent = '0';
       runOnce(function(){
         setTimeout(function(){ loop(); }, 3200);

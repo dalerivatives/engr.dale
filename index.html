@@ -1701,7 +1701,7 @@ function rPh(){
   if(gf)gf.textContent=`${PH.length} photo${PH.length>1?'s':''}`;
   if(typeof gaStart!=='undefined')setTimeout(gaStart,100);
 }
-function sph(d){if(!PH.length)return;PI=Math.max(0,Math.min(PI+d,PH.length-1));$('gtrack').style.transform=`translateX(-${PI*100}%)`;document.querySelectorAll('.gdot').forEach((el,i)=>el.classList.toggle('on',i===PI));$('gIdx').textContent=`${PI+1}/${PH.length}`;if(typeof gaProg!=='undefined'){gaProg=0;}}
+function sph(d){if(!PH.length)return;PI=(PI+d+PH.length)%PH.length;$('gtrack').style.transform=`translateX(-${PI*100}%)`;document.querySelectorAll('.gdot').forEach((el,i)=>el.classList.toggle('on',i===PI));$('gIdx').textContent=`${PI+1}/${PH.length}`;if(typeof gaProg!=='undefined'){gaProg=0;}}
 function gp(i){PI=i;sph(0);}
 function delPh(i){PH.splice(i,1);if(PI>=PH.length)PI=Math.max(0,PH.length-1);rPh();}
 function openPhModal(){if(!EM)return;$('phUrl').value='';$('phErr').style.display='none';$('phM').classList.add('on');setTimeout(()=>$('phUrl').focus(),80);}
@@ -2705,7 +2705,10 @@ document.addEventListener('click', function(e){
 /* ══ 1. COUNT-UP STATS (looping) ══ */
 (function(){
   function rollCounter(el, target, delay){
-    if(!el || isNaN(target) || target === 0) return;
+    if(!el) return;
+    // Capture target from DOM if not passed, before loop resets it
+    if(!target || isNaN(target)) target = parseInt(el.textContent) || 0;
+    if(!target) return;
     var st = el.closest('.st');
 
     function runOnce(onDone){
@@ -2749,17 +2752,12 @@ document.addEventListener('click', function(e){
   }
 
   window.addEventListener('load', function(){
-    var targets = {
-      sP: parseInt((document.getElementById('sP')||{}).textContent)||0,
-      sA: parseInt((document.getElementById('sA')||{}).textContent)||0,
-      sL: parseInt((document.getElementById('sL')||{}).textContent)||0
-    };
     setTimeout(function(){
-      rollCounter(document.getElementById('sP'), targets.sP, 0);
-      rollCounter(document.getElementById('sA'), targets.sA, 280);
-      rollCounter(document.getElementById('sL'), targets.sL, 560);
+      rollCounter(document.getElementById('sP'), 0, 0);
+      rollCounter(document.getElementById('sA'), 0, 280);
+      rollCounter(document.getElementById('sL'), 0, 560);
       animateBadge(document.getElementById('sY'));
-    }, 700);
+    }, 800);
   });
 })();
 

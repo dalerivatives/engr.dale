@@ -162,10 +162,6 @@
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         Portfolio
       </a>
-      <a class="hl" id="lem" href="/cdn-cgi/l/email-protection#8fe5e0e7e1ebeee3eaf9eafdfbe7ffeaece7eee1e0f9eecfe8e2eee6e3a1ece0e2">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        Email
-      </a>
     </div>
   </div>
 
@@ -217,7 +213,7 @@
     </div>
     <div class="f2">
       <div class="fg"><label>Chip (short role)</label><input id="ecp" oninput="lv('hChip',this.value)"/></div>
-      <div class="fg"><label>Specialization</label><input id="esp" oninput="lv('hSpec',this.value);if(window.__setHSpec)window.__setHSpec(this.value);"/></div>
+      <div class="fg"><label>Specialization <span style="opacity:.5;font-size:9px">(use | to separate phrases)</span></label><input id="esp" oninput="lv('hSpec',this.value.split('|')[0].trim());(function(v){var pts=v.split('|').map(function(s){return s.trim();}).filter(Boolean);if(pts.length>0){window.__hSpecPhrases=pts;window.__typedStop=false;if(window.__restartTyped)window.__restartTyped();}})(this.value);"/></div>
     </div>
     <div class="fg"><label>About Me</label><textarea id="eab" rows="4" oninput="lv('hAbout',this.value)"></textarea></div>
     <div class="fg" style="opacity:.6;font-size:11px;padding:8px 12px;background:var(--bg2);border-radius:8px;line-height:1.7;border:1px solid var(--bdr);">
@@ -227,7 +223,6 @@
       <div class="fg"><label>GitHub URL</label><input id="egh" oninput="sa('lgh','href',this.value)"/></div>
       <div class="fg"><label>Portfolio URL</label><input id="ewb" oninput="sa('lweb','href',this.value)"/></div>
     </div>
-    <div class="fg"><label>Email Address</label><input id="eem" oninput="sa('lem','href','mailto:'+this.value)"/></div>
     <div class="fg"><label>🎵 Ambient Sound — YouTube URL <span style="opacity:.5;font-size:9px">(audio plays when sound button is ON)</span></label><input id="esnd" placeholder="https://www.youtube.com/watch?v=..." oninput="setAmbientYT(this.value)"/></div>
     <div class="fg"><label>✦ Background Formulas &amp; Symbols <span style="opacity:.5;font-size:9px">(one per line — these float in the background)</span></label><textarea id="eformulas" rows="8" style="font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;" oninput="updateFormulas(this.value)"></textarea></div>
     <div style="display:flex;gap:8px;margin-top:-8px;">
@@ -408,7 +403,7 @@
   </div>
 </footer>
 
-<script>(function(){function sv(id,v){var e=document.getElementById(id);if(e&&v!==undefined)e.textContent=v;}document.addEventListener("DOMContentLoaded",function(){sv("hFirst","Johndaleverth");sv("hMid","Pastor");sv("hLast","Echanova d");sv("hBadge","Computer Engineer");sv("hChip","CpE");sv("hSpec","Fuck it jonathan nashimer");sv("hAbout","Computer Engineer with a strong background in programming, robotics, web development, and system design — complemented by multimedia production skills. I have hands-on experience in debugging, circuit building, coding system logic, and troubleshooting both hardware and software systems. Hardworking, detail-oriented, and fast-learning individual who adapts quickly to new technologies and environments.");sv("sP","5");sv("sA","4");sv("sY","BS");sv("sL","3");var g=document.getElementById;if(g("lgh"))g("lgh").href="https://github.com/dalerivatives";if(g("lweb"))g("lweb").href="https://johndaleverth.lovable.app/";if(g("lem"))g("lem").href="mailto:"+"johndaleverthpechanova@gmail.com";if(window.__setHSpec)window.__setHSpec("Fuck it jonathan nashimer");});})();</script>
+<script>(function(){function sv(id,v){var e=document.getElementById(id);if(e&&v!==undefined)e.textContent=v;}document.addEventListener("DOMContentLoaded",function(){sv("hFirst","Johndalevertqt");sv("hMid","Pastorfide");sv("hLast","Echanoveexx");sv("hBadge","Computer Engineer");sv("hChip","CpEeeee");sv("hSpec","Why it | deosnt works | Hahahaha | Bitch | please | dont | want");sv("hAbout","Computer Engineer with a strong background in programming, robotics, web development, and system design — complemented by multimedia production skills. I have hands-on experience in debugging, circuit building, coding system logic, and troubleshooting both hardware and software systems. Hardworking, detail-oriented, and fast-learning individual who adapts quickly to new technologies and environments. fxx");sv("sP","7");sv("sA","3");sv("sY","BS");sv("sL","0");var g=document.getElementById;if(g("lgh"))g("lgh").href="https://github.com/dalerivatives";if(g("lweb"))g("lweb").href="https://johndaleverth.lovable.app/";(function(v){if(v&&v.trim()){var pts=v.split("|").map(function(s){return s.trim();}).filter(Boolean);if(pts.length)window.__hSpecPhrases=pts;}})("Why it | deosnt works | Hahahaha | Bitch | please | dont | want");});})();</script>
   <script src="js/data.js"></script>
   <script src="js/security.js"></script>
   <script src="js/auth.js"></script>

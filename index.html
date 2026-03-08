@@ -217,11 +217,11 @@
     </div>
     <div class="f2">
       <div class="fg"><label>Chip (short role)</label><input id="ecp" oninput="lv('hChip',this.value)"/></div>
-      <div class="fg"><label>Specialization</label><input id="esp" oninput="lv('hSpec',this.value)"/></div>
+      <div class="fg"><label>Specialization</label><input id="esp" oninput="lv('hSpec',this.value);if(window.__setHSpec)window.__setHSpec(this.value);"/></div>
     </div>
     <div class="fg"><label>About Me</label><textarea id="eab" rows="4" oninput="lv('hAbout',this.value)"></textarea></div>
     <div class="fg" style="opacity:.6;font-size:11px;padding:8px 12px;background:var(--bg2);border-radius:8px;line-height:1.7;border:1px solid var(--bdr);">
-      ❖ Stats auto-sync: <b>Projects</b> = project count · <b>Awards</b> = achievement count · <b>Languages</b> = Languages entry in Contact
+      ✦ Stats auto-sync: <b>Projects</b> = project count · <b>Awards</b> = achievement count · <b>Languages</b> = Languages entry in Contact
     </div>
     <div class="f2">
       <div class="fg"><label>GitHub URL</label><input id="egh" oninput="sa('lgh','href',this.value)"/></div>
@@ -408,10 +408,8 @@
   </div>
 </footer>
 
-
-  <!-- Scripts — load order matters -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script src="js/data.js"></script>       <!-- PH, PI, D — must load first -->
+<script>(function(){function sv(id,v){var e=document.getElementById(id);if(e&&v!==undefined)e.textContent=v;}document.addEventListener("DOMContentLoaded",function(){sv("hFirst","Johndaleverth");sv("hMid","Pastor");sv("hLast","Echanova");sv("hBadge","Computer Engineer");sv("hChip","CpE");sv("hSpec","Fuck it jonathan");sv("hAbout","Computer Engineer with a strong background in programming, robotics, web development, and system design — complemented by multimedia production skills. I have hands-on experience in debugging, circuit building, coding system logic, and troubleshooting both hardware and software systems. Hardworking, detail-oriented, and fast-learning individual who adapts quickly to new technologies and environments.");sv("sP","3");sv("sA","3");sv("sY","BS");sv("sL","3");var g=document.getElementById;if(g("lgh"))g("lgh").href="https://github.com/dalerivatives";if(g("lweb"))g("lweb").href="https://johndaleverth.lovable.app/";if(g("lem"))g("lem").href="mailto:"+"johndaleverthpechanova@gmail.com";});})();</script>
+  <script src="js/data.js"></script>
   <script src="js/security.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/storage.js"></script>

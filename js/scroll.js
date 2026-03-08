@@ -90,16 +90,11 @@ document.addEventListener('click', function(e){
     'Hardware · Software · Everything'
   ];
 
-  // If user has saved a custom hSpec, show it statically into the autotyper (pipe-separated or single)
+  // If user has saved a custom hSpec, show it statically (no animation)
   window.__typedStop = false;
   window.__setHSpec = function(val){
-    if(!val || !val.trim()){ return; }
-    var pts = val.split('|').map(function(s){ return s.trim(); }).filter(Boolean);
-    if(pts.length > 0){
-      window.__hSpecPhrases = pts;
-      window.__typedStop = false;
-      if(window.__restartTyped) window.__restartTyped();
-    }
+    window.__typedStop = true;
+    el.textContent = val || '';
   };
 
   const cursor = document.createElement('span');
@@ -111,7 +106,7 @@ document.addEventListener('click', function(e){
   let _timer = null;
 
   function getPhrases(){
-    return (window.__hSpecPhrases && window.__hSpecPhrases.length) ? window.__hSpecPhrases : ["Why it","deosnt works","Hahahaha","Bitch","please","dont","want"];
+    return (window.__hSpecPhrases && window.__hSpecPhrases.length) ? window.__hSpecPhrases : defaultPhrases;
   }
 
   function type(){

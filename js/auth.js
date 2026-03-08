@@ -36,6 +36,7 @@ function enterEdit(){
   f('ecp',gt('hChip'));f('esp',(function(){try{const _d=JSON.parse(localStorage.getItem('jpe_v9')||'{}');return(_d.h&&_d.h.sp)||gt('hSpec')||'';}catch(e){return gt('hSpec');}})());f('eab',gt('hAbout'));
   // Stats auto-sync from sections — no manual inputs needed
   f('egh',$('lgh').href);f('ewb',$('lweb').href);
+  f('eem',($('lem').href||'').replace('mailto:',''));
   try{const d=JSON.parse(localStorage.getItem('jpe_v9')||'{}');if(d.ambientYT)f('esnd',d.ambientYT);}catch(e){}
   const fEl=$('eformulas');if(fEl)fEl.value=(window.FORMULAS||[]).join('\n');
 }

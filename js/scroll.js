@@ -111,7 +111,7 @@ document.addEventListener('click', function(e){
   let _timer = null;
 
   function getPhrases(){
-    return (window.__hSpecPhrases && window.__hSpecPhrases.length) ? window.__hSpecPhrases : ["Why it","deosnt works","Hahahaha","Bitch","please","dont","want"];
+    return (window.__hSpecPhrases && window.__hSpecPhrases.length) ? window.__hSpecPhrases : ["Full-Stack Developer"];
   }
 
   function type(){

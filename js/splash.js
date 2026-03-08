@@ -82,7 +82,7 @@
   let playing = false;
   let ytReady = false;
   let player = null;
-  let ambientVid = ''+extractVid("https://youtu.be/44kgMBXSFXM");
+  let ambientVid = ''+extractVid("https://youtu.be/MEkaqZecpUQ");
   const btn = document.getElementById('soundBtn');
 
   // Hidden YT iframe container

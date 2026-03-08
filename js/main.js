@@ -1,7 +1,7 @@
 function bindTilt(){
   // tilt removed — cards use CSS hover lift only
 }
-window.addEventListener('load',()=>{loadS();rAll();rPh();try{const _ld=JSON.parse(localStorage.getItem('jpe_v9')||'{}');if(_ld.h&&_ld.h.sp&&window.__setHSpec)setTimeout(()=>window.__setHSpec(_ld.h.sp),1600);}catch(e){}
+window.addEventListener('load',()=>{loadS();rAll();rPh();
   try{
     const d=JSON.parse(localStorage.getItem('jpe_v9')||'{}');
     if(d.formulas&&d.formulas.length){window.FORMULAS=d.formulas;if(window.refreshFormulas)window.refreshFormulas();}

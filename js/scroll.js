@@ -81,7 +81,7 @@ document.addEventListener('click', function(e){
   const el = document.getElementById('hSpec');
   if(!el) return;
 
-  const phrases = [
+  const defaultPhrases = [
     'Embedded Systems Developer',
     'Software Engineer',
     'Robotics Enthusiast',
@@ -90,7 +90,13 @@ document.addEventListener('click', function(e){
     'Hardware · Software · Everything'
   ];
 
-  // Create cursor element
+  // If user has saved a custom hSpec, show it statically (no animation)
+  window.__typedStop = false;
+  window.__setHSpec = function(val){
+    window.__typedStop = true;
+    el.textContent = val || '';
+  };
+
   const cursor = document.createElement('span');
   cursor.className = 'typed-cursor';
   el.textContent = '';
@@ -99,8 +105,10 @@ document.addEventListener('click', function(e){
   let phraseIdx = 0, charIdx = 0, deleting = false, paused = false;
 
   function type(){
+    if(window.__typedStop){ el.textContent = el.textContent.replace(/[|▋]/g,''); return; }
     if(paused) return;
-    const current = phrases[phraseIdx];
+    const phrases = (window.__hSpecPhrases && window.__hSpecPhrases.length) ? window.__hSpecPhrases : defaultPhrases;
+    const current = phrases[phraseIdx % phrases.length];
 
     if(!deleting){
       charIdx++;

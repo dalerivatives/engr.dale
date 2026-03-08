@@ -230,12 +230,5 @@ function rEds(){
   if(cEL)cEL.innerHTML=D.ct.map((c,i)=>`<div class="ei"><button class="eidel" onclick="delCt(${i})">×</button><div class="f2"><div class="fg"><label>Label</label><input value="${esc(c.lbl)}" oninput="D.ct[${i}].lbl=this.value;rCt()"/></div><div class="fg"><label>Value</label><input value="${esc(c.val)}" oninput="D.ct[${i}].val=this.value;rCt()"/></div></div><div class="fg"><label>Link URL</label><input value="${esc(c.link||'')}" placeholder="https://..." oninput="D.ct[${i}].link=this.value;rCt()"/></div></div>`).join('');
 }
 
-function rAll(){rSw('edu',D.edu,rCard);rSw('cert',D.cert,rCard);rSw('proj',D.proj,rCard);rSw('ach',D.ach,rAch);rSw('sem',D.sem,rCard);rSw('exp',D.exp,rCard);rSk();rCt();rEds();setTimeout(bindTilt,100);
-  // Auto-sync stat counters with actual data lengths
-  var spEl=$('sP'),saEl=$('sA');
-  if(spEl){spEl.textContent=D.proj.length;}
-  if(saEl){saEl.textContent=D.ach.length;}
-  var es1=$('es1'),es2=$('es2');
-  if(es1)es1.value=D.proj.length;
-  if(es2)es2.value=D.ach.length;
+function rAll(){rSw('edu',D.edu,rCard);rSw('cert',D.cert,rCard);rSw('proj',D.proj,rCard);rSw('ach',D.ach,rAch);rSw('sem',D.sem,rCard);rSw('exp',D.exp,rCard);rSk();rCt();rEds();if(typeof syncStats==='function')syncStats();setTimeout(bindTilt,100);
 }

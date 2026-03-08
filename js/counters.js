@@ -45,15 +45,23 @@
   }
 
   window.addEventListener('load', function(){
-    var targets = {
-      sP: parseInt((document.getElementById('sP')||{}).textContent)||0,
-      sA: parseInt((document.getElementById('sA')||{}).textContent)||0,
-      sL: parseInt((document.getElementById('sL')||{}).textContent)||0
-    };
+    // Compute counts from live D arrays (set by data.js + loadS)
+    var nP = (typeof D !== 'undefined' && D.proj) ? D.proj.length : parseInt((document.getElementById('sP')||{}).textContent)||0;
+    var nA = (typeof D !== 'undefined' && D.ach)  ? D.ach.length  : parseInt((document.getElementById('sA')||{}).textContent)||0;
+    var nL = 0;
+    if(typeof D !== 'undefined' && D.sk){
+      D.sk.forEach(function(c){ if(c.cat && c.cat.toLowerCase().indexOf('language')>=0 && c.tags) nL = c.tags.length; });
+    }
+    if(!nL) nL = parseInt((document.getElementById('sL')||{}).textContent)||0;
+    // Write counts to DOM so counters animate to the right target
+    var spEl=document.getElementById('sP'), saEl=document.getElementById('sA'), slEl=document.getElementById('sL');
+    if(spEl) spEl.textContent = nP;
+    if(saEl) saEl.textContent = nA;
+    if(slEl) slEl.textContent = nL;
     setTimeout(function(){
-      rollCounter(document.getElementById('sP'), targets.sP, 0);
-      rollCounter(document.getElementById('sA'), targets.sA, 280);
-      rollCounter(document.getElementById('sL'), targets.sL, 560);
+      rollCounter(document.getElementById('sP'), nP, 0);
+      rollCounter(document.getElementById('sA'), nA, 280);
+      rollCounter(document.getElementById('sL'), nL, 560);
       animateBadge(document.getElementById('sY'));
     }, 700);
   });
@@ -126,4 +134,3 @@
   }
   window.addEventListener('load', syncFooterLinks);
 })();
-</script>

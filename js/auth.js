@@ -28,11 +28,13 @@ function enterEdit(){
   $('edBtn').lastChild.textContent='exit owner';
   const db=$('drawerOwnerBtn');if(db)db.lastChild.textContent=' exit owner mode';
   $('hero-ed').classList.add('on');
+  // Stop typing animation if user has saved a custom hSpec
+  (function(){try{const _d=JSON.parse(localStorage.getItem('jpe_v9')||'{}');if(_d.h&&_d.h.sp&&window.__setHSpec)window.__setHSpec(_d.h.sp);}catch(e){}})();
   $('hedwrap').style.paddingTop='32px';$('hedwrap').style.paddingBottom='32px';
   const f=(id,v)=>{const e=$(id);if(e)e.value=v||'';};
   f('efn',gt('hFirst'));f('emn',gt('hMid'));f('eln',gt('hLast'));f('ebd',gt('hBadge'));
-  f('ecp',gt('hChip'));f('esp',gt('hSpec'));f('eab',gt('hAbout'));
-  f('es1',gt('sP'));f('es2',gt('sA'));f('es3',gt('sY'));f('es4',gt('sL'));
+  f('ecp',gt('hChip'));f('esp',(function(){try{const _d=JSON.parse(localStorage.getItem('jpe_v9')||'{}');return(_d.h&&_d.h.sp)||gt('hSpec')||'';}catch(e){return gt('hSpec');}})());f('eab',gt('hAbout'));
+  // Stats auto-sync from sections — no manual inputs needed
   f('egh',$('lgh').href);f('ewb',$('lweb').href);
   f('eem',($('lem').href||'').replace('mailto:',''));
   try{const d=JSON.parse(localStorage.getItem('jpe_v9')||'{}');if(d.ambientYT)f('esnd',d.ambientYT);}catch(e){}

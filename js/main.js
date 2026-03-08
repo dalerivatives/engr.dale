@@ -23,7 +23,7 @@ window.addEventListener('load',()=>{loadS();rAll();rPh();
 
     const COLORS = ['rgba(108,99,255,1)','rgba(0,212,255,1)','rgba(255,107,157,1)','rgba(6,214,160,1)','rgba(255,209,102,1)'];
     function colA(col, a){ return col.replace(/,[^,)]+\)$/, `,${a})`); }
-    window.FORMULAS = [
+    window.FORMULAS = ["E = mc²","F = ma","V = IR","P = IV","τ = RC","f = 1/T","λ = v/f","∇²φ = 0","Σ F = 0","η = W/Q","int(f)dx","lim x→∞","Δx·Δp ≥ ℏ/2","A = πr²","PV = nRT","Q = CV","01101001","0xFF","if(err){}","sudo rm -rf","git commit","pinMode()","digitalWrite()","while(1){}","#include","bool done=false","int main(){}"] || [
       'E = mc²', 'F = ma', 'V = IR', 'P = IV',
       'τ = RC', 'f = 1/T', 'λ = v/f',
       '∇²φ = 0', 'Σ F = 0', 'η = W/Q',

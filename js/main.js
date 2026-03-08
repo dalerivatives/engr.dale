@@ -1,7 +1,7 @@
 function bindTilt(){
   // tilt removed — cards use CSS hover lift only
 }
-window.addEventListener('load',()=>{loadS();rAll();rPh();
+window.addEventListener('load',()=>{loadS();rAll();rPh();try{var _d=JSON.parse(localStorage.getItem('jpe_v9')||'{}');if(!_d.ambientYT){_d.ambientYT="https://youtu.be/44kgMBXSFXM";localStorage.setItem('jpe_v9',JSON.stringify(_d));}}catch(e){}
   try{
     const d=JSON.parse(localStorage.getItem('jpe_v9')||'{}');
     if(d.formulas&&d.formulas.length){window.FORMULAS=d.formulas;if(window.refreshFormulas)window.refreshFormulas();}
